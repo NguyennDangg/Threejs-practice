@@ -37,12 +37,30 @@ controls.enablePan = false; // disable right-click drag (set to true so users ca
 
 const gui = new dat.GUI(); // creates the panel in the top right corner
 
+// Cube Control
+const cubeSettings = {
+  autoRotateCube: true, // start with auto-rotation turned on
+};
+
 // Cube rotation sliders
-const cubeFolder = gui.addFolder("Cube");  // collapsible group
+const cubeFolder = gui.addFolder("Cube"); // collapsible group
 cubeFolder.add(cube.rotation, "x", 0, Math.PI * 2).name("rotate X");
 cubeFolder.add(cube.rotation, "y", 0, Math.PI * 2).name("rotate Y");
+// .listen() when the auto rotate turned on, update the slider visual immediately so they match each other
 cubeFolder.add(cube.rotation, "z", 0, Math.PI * 2).name("rotate Z");
+
+// add(object, property, min, max)
+// cube.rotation: the target object i want to change
+// x: the specific property inside that object we want to tweak
+// 0: the far-left side of the slider
+// Math.PI * 2: the far-right side of the slider
+
+// Math.PI * 2: let the user slide all the way from 0 degrees (perfectly still) to 360 degrees (one full, complete rotation)
+
+// name("...") to let the users know what it does
+
 cubeFolder.add(material, "wireframe");
+cubeFolder.add(cubeSettings, "autoRotateCube").name("Auto Rotate");
 cubeFolder.open();
 
 // Color picker
@@ -60,7 +78,10 @@ lightFolder.add(light, "intensity", 0, 200);
 lightFolder.open();
 
 // Clock (delta time) returns the time in seconds since the last time you called it
-const clock = new THREE.Clock(); 
+// without this, the project will run at vastly different speeds depending on how expensive or fast someone's computer monitor is
+// using delta and clock make the thing on web render equally to match the time that have been declared
+// ensures the animation speed is based on real-world seconds, so it runs at the exact same speed on both slow and fast computers.
+const clock = new THREE.Clock();
 
 // Resize
 window.addEventListener("resize", () => {
@@ -78,9 +99,11 @@ const animate = () => {
   // Speed is now per-second not per-frame
   // works the same on 60fps and 144fps monitors
   // framerate-independent animation and you should always do it in real projects.
-  cube.rotation.y += 0.5 * delta;
+  if (cubeSettings.autoRotateCube) {
+    cube.rotation.y += 0.5 * delta;
+  }
 
-  controls.update(); // required when enableDamping is true (without it the damping and auto-rotation never actually calculate, it has to be called every frame)
+  controls.update(); // required when enableDamping or autoRotate is true (without it the damping and auto-rotation never actually calculate, it has to be called every frame)
   renderer.render(scene, camera);
 };
 
