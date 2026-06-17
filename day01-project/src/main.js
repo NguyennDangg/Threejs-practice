@@ -121,3 +121,6 @@ function animate() {
 }
 
 animate();
+
+
+// credits to Fireship https://www.youtube.com/watch?v=Q7AOvWpIVHU
