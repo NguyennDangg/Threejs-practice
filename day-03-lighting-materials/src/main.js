@@ -23,7 +23,6 @@ const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 
 // Materials
-
 // MeshStandardMaterial — physically based
 // roughness: 0 = mirror, 1 = totally rough (controls how blurry the reflections are)
 // metalness: 0 = plastic, 1 = metal (controls how metalic the object feels)
@@ -87,6 +86,11 @@ scene.add(pointLight);
 const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.3);
 scene.add(pointLightHelper);
 
+// DirectionalLight helper — shows a grid and the ray direction (The sun helper :D)
+// (the second parameter '1' is just the size of the helper icon)
+const dirLightHelper = new THREE.DirectionalLightHelper(dirLight, 1);
+scene.add(dirLightHelper);
+
 // Gui (the same as day 02)
 const gui = new dat.GUI();
 
@@ -105,6 +109,9 @@ lightFolder.open();
 
 const pointFolder = gui.addFolder("Point Light");
 pointFolder.add(pointLight, "intensity", 0, 200);
+pointFolder.add(pointLight.position, "x", -10, 10).name("light X");
+pointFolder.add(pointLight.position, "y", -10, 10).name("light Y");
+pointFolder.add(pointLight.position, "z", -10, 10).name("light Z");
 pointFolder.open();
 
 // Resize
@@ -123,7 +130,7 @@ window.addEventListener("resize", () => {
     camera.position.z = 6; // Standard desktop distance
   }
 
-  // Call this ONCE at the end to apply all camera updates smoothly!
+  // Call this once at the end to apply all camera updates smoothly!
   camera.updateProjectionMatrix();
 });
 
@@ -149,6 +156,10 @@ const animate = () => {
   box.rotation.x += 0.1 * delta;
   torus.rotation.y += 0.3 * delta;
   torus.rotation.x += 0.3 * delta;
+
+  // IMPORTANT: force the helpers to update their positions on screen!
+  pointLightHelper.update();
+  dirLightHelper.update(); // the sun helper moves with the sliders!
 
   controls.update();
   renderer.render(scene, camera);
