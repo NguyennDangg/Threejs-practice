@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "dat.gui": "^0.7.9",
     "three": "^0.170.0"
   },
   "devDependencies": {
