@@ -14,10 +14,11 @@
       href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.scss" />
   </head>
 
   <body>
+    <canvas id="bg-canvas"></canvas>
     <main class="portfolio-container">
       <header>
         <p class="eva-tag"><span class="dot"></span>NERV // MAGI SYSTEM</p>
@@ -30,44 +31,49 @@
         <a href="./day-01-rotating-cube/index.html" class="project-card">
           <span class="log">LOG_01</span>
           <h3>Day 01</h3>
-          <p>The Basics: Rotating Cube Setup</p>
+          <p>It begins with a single turn.</p>
         </a>
 
         <a href="./day01-project/index.html" class="project-card">
-          <span class="log">LOG_01b</span>
+          <span class="log">LOG_01a</span>
           <h3>Day 01 Project</h3>
-          <p>Bonus Challenge: Customized Prototype</p>
+          <p>Not yet finished. By design.</p>
         </a>
 
         <a href="./day-02-orbitctrl-datgui/index.html" class="project-card">
           <span class="log">LOG_02</span>
           <h3>Day 02</h3>
-          <p>User Interaction: OrbitControls & GUI</p>
+          <p>Control, granted. Use it wisely.</p>
         </a>
 
         <a href="./day-03-lighting-materials/index.html" class="project-card">
           <span class="log">LOG_03</span>
           <h3>Day 03</h3>
-          <p>Environment: Complex Lighting & Shadows</p>
+          <p>Light reveals what was always there.</p>
         </a>
 
         <a href="./day-04-gltf-hdr/index.html" class="project-card">
           <span class="log">LOG_04</span>
           <h3>Day 04</h3>
-          <p>Photorealistic Asset Viewer: Marin Kitagawa AMG GT3</p>
+          <p>Marin Kitagawa's AMG GT3. Rendered, not imagined.</p>
         </a>
 
         <a href="./day-05-modern-api/index.html" class="project-card">
           <span class="log">LOG_05</span>
           <h3>Day 05</h3>
-          <p>Review all the things i have learnt</p>
+          <p>Everything until now. Necessary.</p>
         </a>
-
       </section>
 
       <footer class="status-line">
         STATUS: NOMINAL &nbsp;//&nbsp; CONNECTION: STABLE &nbsp;//&nbsp; TOKYO-3
       </footer>
+
+      <p class="scenario-line">
+        <span id="scenario-text"></span><span class="cursor">_</span>
+      </p>
+
     </main>
+    <script type="module" src="./main.js"></script>
   </body>
 </html>
