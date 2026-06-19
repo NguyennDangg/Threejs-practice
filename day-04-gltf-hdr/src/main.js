@@ -29,7 +29,7 @@ renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1;
 // Enable shadow maps on the renderer
 renderer.shadowMap.enabled = true;
-renderer.shadowMap.type = THREE.PCFSoftShadowMap; // Clean, non-pixelated shadows
+renderer.shadowMap.type = THREE.PCFShadowMap; // Clean, non-pixelated shadows (PCFSoftShadowMap)
 document.body.appendChild(renderer.domElement);
 
 // Controls virtual camera
