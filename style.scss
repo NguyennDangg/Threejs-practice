@@ -2,7 +2,12 @@
   --accent: #c1121f;
 }
 
-@mixin animate($keyframe, $duration, $timing: ease-in-out, $iteration: infinite) {
+@mixin animate(
+  $keyframe,
+  $duration,
+  $timing: ease-in-out,
+  $iteration: infinite
+) {
   animation: $keyframe $duration $timing $iteration;
 
   @media (prefers-reduced-motion: reduce) {
@@ -11,17 +16,32 @@
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.3; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.3;
+  }
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
 }
 
 * {
   box-sizing: border-box;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 body {
@@ -82,6 +102,7 @@ body {
       letter-spacing: 0.03em;
       margin: 0 0 10px;
       color: #f3f1ea;
+      text-shadow: 0 0 30px rgba(193, 18, 31, 0.15);
 
       @media (max-width: 600px) {
         font-size: 1.85rem;
@@ -104,8 +125,12 @@ body {
 
   .grid-links {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 14px;
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
 
     .project-card {
       position: relative;
@@ -115,11 +140,15 @@ body {
       padding: 20px;
       text-decoration: none;
       color: inherit;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
 
       &:hover {
         border-color: var(--accent);
-        box-shadow: 0 0 0 1px var(--accent), 0 0 18px rgba(193, 18, 31, 0.18);
+        box-shadow:
+          0 0 0 1px var(--accent),
+          0 0 18px rgba(193, 18, 31, 0.18);
       }
 
       .log {
@@ -143,6 +172,33 @@ body {
         color: #8c887e;
         line-height: 1.4;
       }
+
+      &::after {
+        content: "→";
+        position: absolute;
+        bottom: 16px;
+        right: 16px;
+        font-size: 0.75rem;
+        color: var(--accent);
+        opacity: 0;
+        transform: translateX(-4px);
+        transition:
+          opacity 0.15s ease,
+          transform 0.15s ease;
+      }
+
+      &:hover::after {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      .tech-tag {
+        display: block;
+        margin-top: 10px;
+        font-size: 0.67rem;
+        letter-spacing: 0.06em;
+        color: #4a4740;
+      }
     }
   }
 
@@ -155,11 +211,15 @@ body {
     color: #4a4740;
   }
 
+  .timestamp {
+    color: #3a3733;
+  }
+
   .scenario-line {
     margin-top: 18px;
     font-size: 0.68rem;
     letter-spacing: 0.08em;
-    color: #3a3733;
+    color: #5c5950;
     text-transform: lowercase;
 
     .cursor {

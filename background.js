@@ -1,5 +1,6 @@
 import * as THREE from "three";
-import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js"; // using GLTFLoader for more specific
+// Addon is fine too
 import gsap from "gsap";
 
 export function initBackground() {
@@ -40,7 +41,7 @@ export function initBackground() {
   const particles = new THREE.Points(particleGeo, particleMat);
   scene.add(particles);
 
-  // Background model — wireframe ghost
+  // Background model (wireframe)
   const loader = new GLTFLoader();
   let model;
   const modelMaterials = [];
@@ -68,16 +69,35 @@ export function initBackground() {
       model.rotation.z = Math.PI / 22;
       scene.add(model);
 
-      // Ease in once loaded, instead of popping into existence
+      // Ease in once loaded
       gsap.to(modelMaterials, {
-        opacity: 0.07,
+        opacity: 0.045,
         duration: 1.6,
         ease: "power2.out",
         stagger: 0.01,
       });
     },
     undefined,
-    (err) => console.error("Background model failed to load:", err),
+    (err) => {
+      console.error("Background model failed to load:", err);
+      // Fallback: wireframe torus so background isn't empty
+      const fallbackGeo = new THREE.TorusGeometry(2, 0.5, 16, 60);
+      const fallbackMat = new THREE.MeshBasicMaterial({
+        color: 0xc1121f,
+        wireframe: true,
+        transparent: true,
+        opacity: 0,
+      });
+      model = new THREE.Mesh(fallbackGeo, fallbackMat);
+      modelMaterials.push(fallbackMat);
+      model.position.set(2, -1.5, -9);
+      scene.add(model);
+      gsap.to(fallbackMat, {
+        opacity: 0.07,
+        duration: 1.6,
+        ease: "power2.out",
+      });
+    },
   );
 
   let mouseX = 0,

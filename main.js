@@ -21,8 +21,31 @@ function typewriter(el, text, duration = 1.6, delay = 0) {
   );
 }
 
+function startClock() {
+  const footer = document.querySelector(".status-line");
+
+  function tick() {
+    const now = new Date();
+    const date = now.toISOString().slice(0, 10).replace(/-/g, ".");
+    const time = now.toTimeString().slice(0, 8);
+
+    // Append or update the timestamp span
+    let stamp = footer.querySelector(".timestamp");
+    if (!stamp) {
+      stamp = document.createElement("span");
+      stamp.className = "timestamp";
+      footer.appendChild(stamp);
+    }
+    stamp.textContent = ` \u00a0//\u00a0 ${date} — ${time}`;
+  }
+
+  tick();
+  setInterval(tick, 1000);
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   initBackground();
+  startClock();
   const tl = gsap.timeline();
 
   tl.from(".eva-tag", { opacity: 0, y: -10, duration: 0.5, ease: "power2.out" })
@@ -49,11 +72,12 @@ document.addEventListener("DOMContentLoaded", () => {
       "-=0.1",
     )
     .from(".status-line", { opacity: 0, duration: 0.5 }, "-=0.2")
-    .call(() => {
-      typewriter(
-        document.getElementById("scenario-text"),
-        "scenario complete. feelings irrelevant.",
-        1.4,
-      );
-    });
+    .call(
+      () => {
+        const el = document.getElementById("scenario-text");
+        typewriter(el, "scenario complete. feelings irrelevant.", 1.4);
+      },
+      [],
+      tl.duration(),
+    );
 });
