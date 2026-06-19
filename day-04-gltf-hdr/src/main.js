@@ -5,7 +5,7 @@ import * as THREE from "three";
 import {
   OrbitControls,
   GLTFLoader,
-  HDRLoader,
+  RGBELoader,
 } from "three/examples/jsm/Addons.js";
 
 const scene = new THREE.Scene();
@@ -44,8 +44,8 @@ controls.target.set(0, 0.5, 0); // orbit around the middle of the car, not the f
 // The HDR becomes both:
 //   1. the background
 //   2. the light source that illuminates the model (no need to add light source)
-const hdrLoader = new HDRLoader();
-hdrLoader.load("/assets/studio_lighting.hdr", (texture) => {
+const rgbeLoader = new RGBELoader();
+rgbeLoader.load("/assets/studio_lighting.hdr", (texture) => {
   // EquirectangularReflectionMapping tells Three.js
   // this is a 360 panoramic image, wrap it around the scene
   texture.mapping = THREE.EquirectangularReflectionMapping;

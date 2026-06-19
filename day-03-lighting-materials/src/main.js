@@ -1,6 +1,6 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/Addons.js";
-import { Timer } from "three";
+// import { Timer } from 'three/addons/misc/Timer.js';
 import * as dat from "dat.gui";
 
 const scene = new THREE.Scene();
@@ -135,19 +135,19 @@ window.addEventListener("resize", () => {
 });
 
 // Animate function with real time respond
-// const clock = new THREE.Clock()
+const clock = new THREE.Clock();
 
 // New tool to replace THREE.Clock()
-const timer = new Timer();
+// const timer = new Timer();
 
 const animate = () => {
   requestAnimationFrame(animate);
 
   // must update the time every single frame
-  timer.update();
+  // timer.update();
 
   // getting the delta time will work perfectly
-  const delta = timer.getDelta();
+  const delta = clock.getDelta();
 
   // slowly rotate all objects
   // animation will move smoothly now
