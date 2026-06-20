@@ -121,6 +121,8 @@ export function initBackground() {
 
     if (model) {
       model.rotation.y += 0.0015;
+      model.rotation.x += 0.0006;
+      model.rotation.z += 0.0003;
     }
 
     camera.position.x += (mouseX * 0.6 - camera.position.x) * 0.02;

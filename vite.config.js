@@ -18,6 +18,7 @@ export default defineConfig({
         day03: resolve(__dirname, "day-03-lighting-materials/index.html"),
         day04: resolve(__dirname, "day-04-gltf-hdr/index.html"),
         day05: resolve(__dirname, "day-05-modern-api/index.html"),
+        day06: resolve(__dirname, 'day-06-glsl-fundamentals/index.html'),
       },
     },
   },
