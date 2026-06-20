@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Day 06 — GLSL Fundamentals</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background: #000;
+        overflow: hidden;
+      }
+
+      canvas {
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <canvas id="glcanvas"></canvas>
+
+    <script>
+      const canvas = document.getElementById("glcanvas");
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      // setup
+      const gl = canvas.getContext("webgl");
+
+      // Vertex shader
+      const vertexShaderSource = `
+      attribute vec2 a_position;
+      void main() {
+        gl_Position = vec4(a_position, 0.0, 1.0);
+      }
+    `;
+
+      // Fragment shader
+
+      // ── Fragment Shader ──
+      const fragmentShaderSource = `
+      precision mediump float;
+      uniform vec2 u_resolution;
+
+      void main() {
+        // Normalize coordinates: 0.0 to 1.0 across the screen
+        vec2 st = gl_FragCoord.xy / u_resolution.xy;
+        
+        // Calculate aspect ratio (e.g., 1920/1080 ≈ 1.78) to fix widescreen stretching
+        float aspect = u_resolution.x / u_resolution.y;
+        st.x *= aspect;
+        
+        // Scale the center point identically to st.x so it remains perfectly centered
+        vec2 center = vec2(0.5 * aspect, 0.5);
+        
+        // Calculate distance from the current pixel to our corrected center
+        float d = distance(st, center);
+        
+        // smoothstep(edge0, edge1, x) creates a clean, anti-aliased edge
+        // Inside circle (< 0.3) = 0.0 | Outside circle (> 0.31) = 1.0
+        float circle = smoothstep(0.3, 0.31, d);
+        
+        // Invert the values (1.0 - circle) to color the inside white and background black
+        gl_FragColor = vec4(vec3(1.0 - circle), 1.0);
+      }
+    `;
+
+      // Compile a shader from source code
+      function createShader(gl, type, source) {
+        const shader = gl.createShader(type);
+        gl.shaderSource(shader, source);
+        gl.compileShader(shader);
+        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+          console.error(gl.getShaderInfoLog(shader));
+          return null;
+        }
+        return shader;
+      }
+
+      // vertexShader and fragmentShader cannot live without eachother
+      const vertexShader = createShader(
+        gl,
+        gl.VERTEX_SHADER,
+        vertexShaderSource,
+      );
+      const fragmentShader = createShader(
+        gl,
+        gl.FRAGMENT_SHADER,
+        fragmentShaderSource,
+      );
+
+      // Link both shaders into one program (the pipeline for vertex and fragment)
+      const program = gl.createProgram();
+      gl.attachShader(program, vertexShader);
+      gl.attachShader(program, fragmentShader);
+      gl.linkProgram(program);
+      gl.useProgram(program);
+
+      // Define a fullscreen rectangle (two triangles) to GPU memory
+      // (-1,-1) bottom-left
+      // (1, 1) top-right
+      const positions = new Float32Array([
+        -1, -1, 1, -1, -1, 1, -1, 1, 1, -1, 1, 1,
+      ]);
+      const positionBuffer = gl.createBuffer();
+      // shipping data to the GPU
+      gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+      gl.bufferData(gl.ARRAY_BUFFER, positions, gl.STATIC_DRAW);
+
+      const positionLocation = gl.getAttribLocation(program, "a_position");
+      gl.enableVertexAttribArray(positionLocation);
+      gl.vertexAttribPointer(positionLocation, 2, gl.FLOAT, false, 0, 0);
+
+      // Pass resolution into the shader
+      // u_resolution tells the GPU how big the screen currently is
+      const resolutionLocation = gl.getUniformLocation(program, "u_resolution");
+      gl.uniform2f(resolutionLocation, canvas.width, canvas.height);
+
+      // Draw
+      gl.viewport(0, 0, canvas.width, canvas.height);
+      // only one line that changes the whole experience
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    </script>
+  </body>
+</html>
