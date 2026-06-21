@@ -1,36 +1,35 @@
-# Three.js Practice
+<div align="center">
+
+# THREE.JS PRACTICE
 
 *Exploring the intersection of graphics programming, creative coding, and the web.*
+
+[![Live](https://img.shields.io/badge/JOURNAL-c1121f?style=flat-square&logo=vercel&logoColor=white)](https://threejs-practice.up.railway.app)
+![Three.js](https://img.shields.io/badge/Three.js-black?style=flat-square&logo=three.js&logoColor=white)
+![WebGL](https://img.shields.io/badge/WebGL-990000?style=flat-square&logo=webgl&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
+![GLSL](https://img.shields.io/badge/GLSL-5586A4?style=flat-square&logo=opengl&logoColor=white)
+
+</div>
 
 ---
 
 ## About
 
-This repository serves as a collection of daily practice projects while exploring:
+A daily learning journal exploring Three.js, WebGL fundamentals, GLSL shaders, and creative coding.  
+Each day is its own experiment — a standalone page exploring one concept at a time.
 
-- Three.js
-- WebGL fundamentals
-- GLSL shaders
-- Interactive 3D experiences
-- Creative coding techniques
-
-The focus is not on building finished products immediately, but on understanding how modern real-time graphics and immersive web experiences are created from first principles.
+*The focus isn't finished products. It's understanding how real-time graphics and immersive web experiences are built from first principles.*
 
 ---
 
 ## Stack
 
-- Three.js
-- Vite
-- Vanilla JavaScript
-- WebGL
-- GLSL
+Three.js · WebGL · GLSL · Vite · Vanilla JavaScript
 
 ---
 
 ## Inspiration
-
-Developers whose work inspires this learning journey:
 
 - Keita Yamada
 - Yuta Abe
@@ -46,8 +45,10 @@ This repository acts as a public learning journal while exploring graphics progr
 
 ---
 
-> Every experiment is a small step toward building experiences that feel alive.
+<div align="center">
 
-<p align="center">
-  <i>learning in public · one shader at a time</i>
-</p>
+*every experiment is a small step toward something that feels alive.*
+
+**learning in public · one shader at a time**
+
+</div>
