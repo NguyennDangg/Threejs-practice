@@ -26,6 +26,8 @@ export default defineConfig({
         day06e: resolve(__dirname, "day-06-glsl-fundamentals/06e-song.html"),
         day06f: resolve(__dirname, "day-06-glsl-fundamentals/06f-diamond.html"),
         day06g: resolve(__dirname, "day-06-glsl-fundamentals/06g-gradient-warp.html"),
+        day07: resolve(__dirname, "day-07/index.html"),
+        day07a: resolve(__dirname, "day-07/07a-shear-only.html"),
       },
     },
   },
