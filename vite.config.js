@@ -28,6 +28,7 @@ export default defineConfig({
         day06g: resolve(__dirname, "day-06-glsl-fundamentals/06g-gradient-warp.html"),
         day07: resolve(__dirname, "day-07/index.html"),
         day07a: resolve(__dirname, "day-07/07a-shear-only.html"),
+        day08: resolve(__dirname, "day-08-shader-material/index.html"),
       },
     },
   },
