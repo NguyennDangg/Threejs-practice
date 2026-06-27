@@ -29,6 +29,8 @@ export default defineConfig({
         day07: resolve(__dirname, "day-07/index.html"),
         day07a: resolve(__dirname, "day-07/07a-shear-only.html"),
         day08: resolve(__dirname, "day-08-shader-material/index.html"),
+        day09: resolve(__dirname, "day-09-throttle-bar/index.html"),
+        day09a: resolve(__dirname, "day-09a-rpm-arc/index.html"),
       },
     },
   },
