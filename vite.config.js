@@ -31,6 +31,8 @@ export default defineConfig({
         day08: resolve(__dirname, "day-08-shader-material/index.html"),
         day09: resolve(__dirname, "day-09-throttle-bar/index.html"),
         day09a: resolve(__dirname, "day-09a-rpm-arc/index.html"),
+        day09b: resolve(__dirname, "day-09b-gear-indicator/index.html"),
+        day09c: resolve(__dirname, "day-09c-sector-times/index.html"),
       },
     },
   },
