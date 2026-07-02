@@ -1,0 +1,25 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  overflow-x: hidden;
+}
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+/* Scroll container — tall enough to give the camera room to travel */
+#scroll-container {
+  height: 500vh;
+  /* 5 full screens of scroll travel */
+  width: 100%;
+  pointer-events: none;
+  /* let scroll pass through to the window */
+}

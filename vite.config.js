@@ -34,6 +34,7 @@ export default defineConfig({
         day09b: resolve(__dirname, "day-09b-gear-indicator/index.html"),
         day09c: resolve(__dirname, "day-09c-sector-times/index.html"),
         day10: resolve(__dirname, "day-10-hud-assembly/index.html"),
+        day11: resolve(__dirname, "day-11-camera-curves/index.html"),
       },
     },
   },
