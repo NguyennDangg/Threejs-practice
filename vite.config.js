@@ -36,6 +36,7 @@ export default defineConfig({
         day10: resolve(__dirname, "day-10-hud-assembly/index.html"),
         day11: resolve(__dirname, "day-11-camera-curves/index.html"),
         day12: resolve(__dirname, "day-12-particles/index.html"),
+        day13: resolve(__dirname, "day-13-instanced/index.html"),
       },
     },
   },
