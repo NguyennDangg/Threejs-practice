@@ -37,6 +37,8 @@ export default defineConfig({
         day11: resolve(__dirname, "day-11-camera-curves/index.html"),
         day12: resolve(__dirname, "day-12-particles/index.html"),
         day13: resolve(__dirname, "day-13-instanced/index.html"),
+        day14: resolve(__dirname, "day-14-post-processing/index.html"),
+        day15: resolve(__dirname, "day-15-transitions/index.html"),
       },
     },
   },
