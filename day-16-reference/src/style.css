@@ -1,0 +1,75 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0a0a0a;
+  color: #f4f1ea;
+  font-family: "Space Mono", monospace;
+  padding: 28px;
+}
+
+.lab-tag {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.lab-red {
+  color: #c1121f;
+  font-size: 12px;
+  letter-spacing: 0.15em;
+}
+
+.lab-dim {
+  font-size: 11px;
+  opacity: 0.5;
+  letter-spacing: 0.1em;
+}
+
+.lab-note {
+  font-size: 11px;
+  opacity: 0.4;
+  margin-bottom: 20px;
+  letter-spacing: 0.05em;
+}
+
+.lab-tabs {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 16px;
+}
+
+.lab-tab {
+  background: transparent;
+  color: #f4f1ea;
+  border: 1px solid #333;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+
+.lab-tab.active {
+  background: #c1121f;
+  color: #0a0a0a;
+  border-color: #c1121f;
+}
+
+.lab-canvas-mount {
+  height: 360px;
+  border: 1px solid #262626;
+  position: relative;
+  overflow: hidden;
+}
+
+.lab-desc {
+  font-size: 11px;
+  opacity: 0.45;
+  margin-top: 14px;
+  line-height: 1.6;
+}
