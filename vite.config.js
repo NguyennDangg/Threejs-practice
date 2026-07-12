@@ -40,6 +40,7 @@ export default defineConfig({
         day14: resolve(__dirname, "day-14-post-processing/index.html"),
         day15: resolve(__dirname, "day-15-transitions/index.html"),
         day16: resolve(__dirname, "day-16-pixelation/index.html"),
+        day16Reference: resolve(__dirname, "day-16-reference/index.html"),
       },
     },
   },

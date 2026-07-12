@@ -1,7 +1,7 @@
 import "./style.css";
 import * as THREE from "three";
 
-// ── Shared vertex shader for fullscreen quads ──
+// Shared vertex shader for fullscreen quads
 const fullscreenVert = `
   varying vec2 vUv;
   void main() {
@@ -10,7 +10,7 @@ const fullscreenVert = `
   }
 `;
 
-// ── Shared simplex 2D noise (Ashima/webgl-noise, MIT license) ──
+// Shared simplex 2D noise (Ashima/webgl-noise, MIT license)
 const simplex2D = `
   vec3 mod289(vec3 x){return x-floor(x*(1.0/289.0))*289.0;}
   vec2 mod289(vec2 x){return x-floor(x*(1.0/289.0))*289.0;}
@@ -42,7 +42,7 @@ const simplex2D = `
   }
 `;
 
-// ── A_FLUID fragment shader ──
+// A_FLUID fragment shader
 const fluidFragment = `
   precision highp float;
   varying vec2 vUv;
@@ -87,7 +87,7 @@ const fluidFragment = `
   }
 `;
 
-// ── B_WARP fragment shader ──
+// B_WARP fragment shader
 const warpFragment = `
   precision highp float;
   varying vec2 vUv;
@@ -126,7 +126,7 @@ const warpFragment = `
 
 const C = (hex) => new THREE.Color(hex);
 
-// ── Generic fullscreen shader canvas ──
+// Generic fullscreen shader canvas
 function createShaderCanvas(mount, fragmentShader, uniformsInit) {
   const w = mount.clientWidth;
   const h = mount.clientHeight;
@@ -185,7 +185,7 @@ function createShaderCanvas(mount, fragmentShader, uniformsInit) {
   }
   raf(last);
 
-  // returns a cleanup function — call this before switching tabs
+  // returns a cleanup function - call this before switching tabs
   return () => {
     cancelAnimationFrame(rafId);
     mount.removeEventListener("pointermove", onMove);
@@ -196,7 +196,7 @@ function createShaderCanvas(mount, fragmentShader, uniformsInit) {
   };
 }
 
-// ── HOP type effect ──
+// HOP type effect
 function power3Out(t) {
   return 1 - Math.pow(1 - t, 3);
 }
@@ -332,7 +332,7 @@ function createHopType(mount, word = "SCENARIO") {
   };
 }
 
-// ── NOISE type effect ──
+// NOISE type effect
 const noiseVert = `
   varying vec2 vUv;
   void main() {
@@ -496,7 +496,7 @@ function createNoiseType(mount, text = "NG-2026") {
   };
 }
 
-// ── Tab controller ──
+// Tab controller
 const descriptions = {
   fluid:
     "fbm stacks 5 noise octaves; two fbm samples fold the coordinate space into a flow; move the pointer to push the field.",

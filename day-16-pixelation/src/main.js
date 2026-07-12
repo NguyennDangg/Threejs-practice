@@ -44,7 +44,7 @@ const ground = new THREE.Mesh(
 ground.rotation.x = -Math.PI / 2;
 scene.add(ground);
 
-// ── GLTF model ──
+// GLTF model
 const loader = new GLTFLoader();
 loader.load("/assets/RB20.glb", (gltf) => {
   const model = gltf.scene;
@@ -56,7 +56,7 @@ loader.load("/assets/RB20.glb", (gltf) => {
   scene.add(model);
 });
 
-// ── Post-processing ──
+// Post-processing
 const composer = new EffectComposer(renderer);
 composer.addPass(new RenderPass(scene, camera));
 
