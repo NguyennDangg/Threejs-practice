@@ -61,6 +61,11 @@ document.addEventListener("DOMContentLoaded", () => {
     )
     .from(".readout", { opacity: 0, duration: 0.4 }, "-=0.2")
     .from(
+      ".reference-pill",
+      { opacity: 0, y: 8, duration: 0.45, ease: "power2.out" },
+      "-=0.15",
+    )
+    .from(
       ".project-card",
       {
         opacity: 0,

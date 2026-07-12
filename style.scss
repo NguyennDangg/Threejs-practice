@@ -121,6 +121,26 @@ body {
       color: #5c5950;
       margin: 0;
     }
+
+    .reference-pill {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      color: #5c5950;
+      text-decoration: none;
+      border: 1px dashed #333;
+      padding: 4px 10px;
+      border-radius: 2px;
+      transition:
+        color 0.2s,
+        border-color 0.2s;
+
+      &:hover {
+        color: var(--accent);
+        border-color: var(--accent);
+      }
+    }
   }
 
   .grid-links {
