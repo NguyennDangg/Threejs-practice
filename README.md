@@ -4,7 +4,7 @@
 
 *Exploring the intersection of graphics programming, creative coding, and the web.*
 
-[![Live](https://img.shields.io/badge/JOURNAL-c1121f?style=flat-square&logo=vercel&logoColor=white)](https://threejs-practice.up.railway.app)
+[![Live](https://img.shields.io/badge/JOURNAL-c1121f?style=flat-square&logo=vercel&logoColor=white)](https://threejs-practice-ivory.vercel.app)
 ![Three.js](https://img.shields.io/badge/Three.js-black?style=flat-square&logo=three.js&logoColor=white)
 ![WebGL](https://img.shields.io/badge/WebGL-990000?style=flat-square&logo=webgl&logoColor=white)
 ![Vite](https://img.shields.io/badge/Vite-646CFF?style=flat-square&logo=vite&logoColor=white)
