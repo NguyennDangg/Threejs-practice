@@ -3,7 +3,8 @@ import { initBackground } from "./background.js";
 
 function typewriter(el, text, duration = 1.6, delay = 0) {
   let shown = 0;
-  gsap.to(
+  return gsap.to(
+    // <-- return the tween
     { i: 0 },
     {
       i: text.length,
@@ -19,6 +20,36 @@ function typewriter(el, text, duration = 1.6, delay = 0) {
       },
     },
   );
+}
+
+function cycleScenarios(el, lines) {
+  let idx = 0;
+  function run() {
+    const line = lines[idx % lines.length];
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // hold, then erase, then next
+        gsap.to(
+          { i: line.length },
+          {
+            i: 0,
+            duration: 0.5,
+            delay: 2.4,
+            ease: "none",
+            onUpdate: function () {
+              el.textContent = line.slice(0, Math.floor(this.targets()[0].i));
+            },
+            onComplete: () => {
+              idx++;
+              run();
+            },
+          },
+        );
+      },
+    });
+    tl.add(typewriter(el, line, Math.max(0.9, line.length * 0.045)));
+  }
+  run();
 }
 
 function startClock() {
@@ -80,7 +111,12 @@ document.addEventListener("DOMContentLoaded", () => {
     .call(
       () => {
         const el = document.getElementById("scenario-text");
-        typewriter(el, "scenario complete. feelings irrelevant.", 1.4);
+        cycleScenarios(el, [
+          "scenario complete. feelings irrelevant.",
+          "magi system synchronized. awaiting input.",
+          "pattern blue. no anomalies detected.",
+          "sync ratio nominal. proceed at will.",
+        ]);
       },
       [],
       tl.duration(),
