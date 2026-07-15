@@ -43,6 +43,7 @@ export default defineConfig({
         day16Reference: resolve(__dirname, "day-16-reference/index.html"),
         day16a: resolve(__dirname, "day-16a-domain-warp-pixelated/index.html"),
         day16b: resolve(__dirname, "day-16b-feedback-ink/index.html"),
+        day16c: resolve(__dirname, "day-16c-bake-to-texture/index.html"),
       },
     },
   },
