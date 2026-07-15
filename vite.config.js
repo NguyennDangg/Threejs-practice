@@ -44,6 +44,8 @@ export default defineConfig({
         day16a: resolve(__dirname, "day-16a-domain-warp-pixelated/index.html"),
         day16b: resolve(__dirname, "day-16b-feedback-ink/index.html"),
         day16c: resolve(__dirname, "day-16c-bake-to-texture/index.html"),
+        day16d: resolve(__dirname, "day-16d-dither-appear/index.html"),
+        day16e: resolve(__dirname, "day-16c-capstone/index.html"),
       },
     },
   },

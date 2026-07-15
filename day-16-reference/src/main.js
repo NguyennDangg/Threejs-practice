@@ -496,6 +496,160 @@ function createNoiseType(mount, text = "NG-2026") {
   };
 }
 
+// scatter effect - velocity field fluid (studied from yutaabe.com)
+// two-pass: a sim pass evolves a velocity field (diffuse + advect +
+// mouse inject), a display pass reads it. Unlike the other tabs this
+// owns render targets, so cleanup disposes them too
+function createFluidCanvas(mount) {
+  const width = mount.clientWidth;
+  const height = mount.clientHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.Camera();
+
+  const renderer = new THREE.WebGLRenderer({ antialias: false });
+  const dpr = Math.min(window.devicePixelRatio, 2);
+  renderer.setPixelRatio(dpr);
+  renderer.setSize(width, height);
+  mount.appendChild(renderer.domElement);
+
+  const quad = new THREE.PlaneGeometry(2, 2);
+
+  const SIM = 256;
+  let simW = SIM;
+  let simH = Math.round(SIM * (height / width));
+  function makeRT() {
+    return new THREE.WebGLRenderTarget(simW, simH, {
+      minFilter: THREE.LinearFilter,
+      magFilter: THREE.LinearFilter,
+      depthBuffer: false,
+      stencilBuffer: false,
+      type: THREE.HalfFloatType,
+    });
+  }
+  let rtA = makeRT();
+  let rtB = makeRT();
+
+  const fluidFrag = `
+    precision highp float;
+    varying vec2 vUv;
+    uniform sampler2D uPrev;
+    uniform vec2 uMouse, uMousePrev;
+    uniform float uRadius, uPush, uDecay;
+    void main(){
+      vec2 uv = vUv;
+      float b = 0.009;
+      vec2 vel = vec2(0.0);
+      vel += texture2D(uPrev, uv + vec2(-b,-b)).rg;
+      vel += texture2D(uPrev, uv + vec2( 0.0,-b)).rg;
+      vel += texture2D(uPrev, uv + vec2( b,-b)).rg;
+      vel += texture2D(uPrev, uv + vec2(-b, 0.0)).rg;
+      vel += texture2D(uPrev, uv).rg * 2.0;
+      vel += texture2D(uPrev, uv + vec2( b, 0.0)).rg;
+      vel += texture2D(uPrev, uv + vec2(-b, b)).rg;
+      vel += texture2D(uPrev, uv + vec2( 0.0, b)).rg;
+      vel += texture2D(uPrev, uv + vec2( b, b)).rg;
+      vel /= 10.0;
+      vec2 upstream = clamp(uv - vel * 0.03, 0.0, 1.0);
+      vel = mix(vel, texture2D(uPrev, upstream).rg, 0.7);
+      vel *= uDecay;
+      vec2 mouseUv = uMouse * 0.5 + 0.5;
+      vec2 mouseDelta = (uMouse - uMousePrev) * uPush;
+      float influence = smoothstep(uRadius, 0.0, distance(uv, mouseUv));
+      vel += mouseDelta * influence;
+      gl_FragColor = vec4(vel, 0.0, 1.0);
+    }
+  `;
+
+  const fluidDisplayFrag = `
+    precision highp float;
+    varying vec2 vUv;
+    uniform sampler2D uState;
+    uniform vec3 uColorBg, uColorInk;
+    void main(){
+      vec2 vel = texture2D(uState, vUv).rg;
+      float strength = length(vel);
+      vec3 col = mix(uColorBg, uColorInk, smoothstep(0.0, 0.15, strength));
+      gl_FragColor = vec4(col, 1.0);
+    }
+  `;
+
+  const simScene = new THREE.Scene();
+  const simMat = new THREE.ShaderMaterial({
+    vertexShader: fullscreenVert,
+    fragmentShader: fluidFrag,
+    uniforms: {
+      uPrev: { value: rtA.texture },
+      uMouse: { value: new THREE.Vector2(0, 0) },
+      uMousePrev: { value: new THREE.Vector2(0, 0) },
+      uRadius: { value: 0.12 },
+      uPush: { value: 6.0 },
+      uDecay: { value: 0.985 },
+    },
+  });
+  simScene.add(new THREE.Mesh(quad, simMat));
+
+  const dispMat = new THREE.ShaderMaterial({
+    vertexShader: fullscreenVert,
+    fragmentShader: fluidDisplayFrag,
+    uniforms: {
+      uState: { value: rtA.texture },
+      uColorBg: { value: C("#0a0a0a") },
+      uColorInk: { value: C("#c1121f") },
+    },
+  });
+  scene.add(new THREE.Mesh(quad, dispMat));
+
+  const target = new THREE.Vector2(0, 0);
+  const smooth = new THREE.Vector2(0, 0);
+  const prev = new THREE.Vector2(0, 0);
+  const OMEGA = 14;
+
+  function onMove(e) {
+    const rect = mount.getBoundingClientRect();
+    target.x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+    target.y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+  }
+  mount.addEventListener("pointermove", onMove);
+
+  let last = performance.now();
+  let rafId;
+  function raf(now) {
+    const dt = Math.min((now - last) / 1000, 0.05);
+    last = now;
+    const a = Math.exp(-OMEGA * dt);
+    prev.copy(smooth);
+    smooth.x = target.x + (smooth.x - target.x) * a;
+    smooth.y = target.y + (smooth.y - target.y) * a;
+
+    simMat.uniforms.uPrev.value = rtA.texture;
+    simMat.uniforms.uMousePrev.value.copy(prev);
+    simMat.uniforms.uMouse.value.copy(smooth);
+    renderer.setRenderTarget(rtB);
+    renderer.render(simScene, camera);
+    [rtA, rtB] = [rtB, rtA];
+
+    dispMat.uniforms.uState.value = rtA.texture;
+    renderer.setRenderTarget(null);
+    renderer.render(scene, camera);
+
+    rafId = requestAnimationFrame(raf);
+  }
+  raf(last);
+
+  return () => {
+    cancelAnimationFrame(rafId);
+    mount.removeEventListener("pointermove", onMove);
+    quad.dispose();
+    simMat.dispose();
+    dispMat.dispose();
+    rtA.dispose();
+    rtB.dispose();
+    renderer.dispose();
+    mount.removeChild(renderer.domElement);
+  };
+}
+
 // Tab controller
 const descriptions = {
   fluid:
@@ -504,6 +658,8 @@ const descriptions = {
   hop: "hover across the letters — each char is its own mesh, position/scale driven by a plain state object, tweened by hand-rolled power3.out.",
   noise:
     "move the pointer over the panel — one mesh, fragment shader displaces the UV lookup using simplex noise scaled by time + smoothed pointer position.",
+  scatter:
+    "move the pointer — a velocity field diffuses + advects like liquid; the buffer stores motion (not ink), so ripples spread and settle. studied from yutaabe.com.",
 };
 
 const mount = document.getElementById("lab-canvas-mount");
@@ -533,6 +689,8 @@ function switchTab(tabId) {
     currentCleanup = createHopType(mount, "SCENARIO");
   } else if (tabId === "noise") {
     currentCleanup = createNoiseType(mount, "NG-2026");
+  } else if (tabId === "scatter") {
+    currentCleanup = createFluidCanvas(mount);
   }
 }
 
