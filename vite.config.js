@@ -46,6 +46,7 @@ export default defineConfig({
         day16c: resolve(__dirname, "day-16c-bake-to-texture/index.html"),
         day16d: resolve(__dirname, "day-16d-dither-appear/index.html"),
         day16e: resolve(__dirname, "day-16e-capstone/index.html"),
+        day17: resolve(__dirname, "day-17/index.html"),
       },
     },
   },
