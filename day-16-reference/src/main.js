@@ -124,6 +124,57 @@ const warpFragment = `
   }
 `;
 
+// C_GRAIN fragment shader — soft radial gradient + film grain.
+// Two cheap ingredients: a distance-based glow, and per-pixel noise
+// scaled BY that glow so grain only shows where there's light. That
+// scaling is what makes it read as film grain instead of TV static.
+const grainFragment = `
+  precision highp float;
+  varying vec2 vUv;
+  uniform float uTime;
+  uniform vec2 uPointer;
+  uniform vec2 uRes;
+  uniform vec3 uColorBg;
+  uniform vec3 uColorGlow;
+
+  // cheap per-pixel hash — reseeded by time so the grain shimmers
+  float hash(vec2 p, float t){
+    return fract(sin(dot(p, vec2(127.1, 311.7)) + t) * 43758.5453);
+  }
+
+  void main(){
+    vec2 uv = vUv;
+    vec2 aspect = vec2(uRes.x / uRes.y, 1.0);
+
+    // travel: 0 → 1 repeating, drives a rise from below to above frame
+    float p = fract(uTime * 0.08);
+
+    vec2 centre = vec2(
+      0.22+ sin(uTime * 0.07) * 0.03,
+      mix(-0.1, 1.1, p)
+    ) + uPointer * 0.08;
+
+    // 1. SOFT GRADIENT — distance from centre, wide falloff
+    float d = distance(uv * aspect, centre * aspect);
+    float glow = smoothstep(2.2, 0.0, d);
+    glow = pow(glow, 1.6);          // tighten the core, keep edges dark
+
+    // fade in as it enters, out as it leaves — so the loop restart is
+    // invisible. sin(p*PI) is 0 at both ends, 1 in the middle.
+    glow *= sin(p * 3.14159);
+
+    // 2. FILM GRAIN — fine per-pixel noise, reseeded ~24 times a second
+    vec2 px = floor(uv * uRes);
+    float g = hash(px, floor(uTime * 24.0)) - 0.5;
+
+    // scale grain BY the glow — invisible in the blacks, present in light
+    float grain = g * 0.28 * glow;
+
+    vec3 col = mix(uColorBg, uColorGlow, glow) + grain;
+    gl_FragColor = vec4(col, 1.0);
+  }
+`;
+
 const C = (hex) => new THREE.Color(hex);
 
 // Generic fullscreen shader canvas
@@ -660,6 +711,8 @@ const descriptions = {
     "move the pointer over the panel — one mesh, fragment shader displaces the UV lookup using simplex noise scaled by time + smoothed pointer position.",
   scatter:
     "move the pointer — a velocity field diffuses + advects like liquid; the buffer stores motion (not ink), so ripples spread and settle. studied from yutaabe.com.",
+  grain:
+    "move the pointer — a soft radial gradient plus fine per-pixel grain, with the grain scaled BY the glow so it only shows where there's light. cheap enough to sit behind real content. studied from p5aholic.me.",
 };
 
 const mount = document.getElementById("lab-canvas-mount");
@@ -684,6 +737,11 @@ function switchTab(tabId) {
     currentCleanup = createShaderCanvas(mount, warpFragment, () => ({
       uColorBg: { value: C("#0a0a0a") },
       uColorLine: { value: C("#c1121f") },
+    }));
+  } else if (tabId === "grain") {
+    currentCleanup = createShaderCanvas(mount, grainFragment, () => ({
+      uColorBg: { value: C("#0d0704") },
+      uColorGlow: { value: C("#b8862c") },
     }));
   } else if (tabId === "hop") {
     currentCleanup = createHopType(mount, "SCENARIO");
