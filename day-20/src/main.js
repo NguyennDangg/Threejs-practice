@@ -116,7 +116,7 @@ function goToView(view) {
   gsap.to(progress, {
     p: 1,
     duration: dur,
-    ease: "none", // linear master; real easing is per-axis
+    ease: "none", // linear master, real easing is per-axis
     onUpdate: () => {
       const p = progress.p;
 
@@ -160,7 +160,7 @@ document.querySelectorAll(".panel button").forEach((btn) => {
 });
 
 // RULE 5 - a drag can INTERRUPT the flight, controls take over from
-// exactly where the camera is, with no jump.
+// exactly where the camera is, with no jump
 renderer.domElement.addEventListener("pointerdown", () => {
   if (animating) {
     gsap.killTweensOf(progress);
@@ -177,11 +177,11 @@ window.addEventListener("resize", () => {
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
 
-/* ---- loop ---- */
+// loop
 function frame() {
   requestAnimationFrame(frame);
-  // ONLY let controls drive when the tween isn't. two systems writing
-  // camera.position on the same frame is what caused the jitter.
+  // ONLY let controls drive when the tween isn't, two systems writing
+  // camera.position on the same frame is what caused the jitter
   if (!animating) controls.update();
   renderer.render(scene, camera);
 }
