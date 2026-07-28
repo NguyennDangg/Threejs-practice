@@ -5,7 +5,7 @@
 // onto an INVISIBLE floor, grounded, but floating in black
 //
 // Three independent switches make this work:
-// scene.background = dark color - what you SEE (black)
+// scene.background = dark color
 // scene.environment = env map - what the car REFLECTS (invisible)
 // ShadowMaterial floor - a floor that only exists where the shadow touches it
 
@@ -16,7 +16,7 @@ import { RoomEnvironment } from "three/examples/jsm/Addons.js";
 
 // scene
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x0a0a0f); // dark - what I actually see
+scene.background = new THREE.Color(0x0a0a0f); // dark
 
 const camera = new THREE.PerspectiveCamera(
   50,
