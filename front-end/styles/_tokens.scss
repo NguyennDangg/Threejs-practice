@@ -1,0 +1,135 @@
+/*
+   TOKENS - the single source of truth for colour, type, spacing.
+   Every component reads from here. Change a value once, it
+   propagates everywhere.
+
+   Themes work by swapping CSS custom properties on <html>, so
+   toggling is instant and needs no re-render. Shaders read the same
+   values via getComputedStyle so canvas and DOM never drift apart.
+*/
+
+// FONTS
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Archivo";
+  src: url("/fonts/Archivo-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
+:root {
+  // TYPE
+  --font-display: "Archivo", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-jp: "Noto Sans JP", var(--font-mono);
+
+  /* type scale - display sizes fluid, labels fixed small */
+  --fs-hero: clamp(2rem, 5.5vw, 3.4rem);
+  --fs-title: 1.05rem; /* log row titles */
+  --fs-body: 0.94rem;
+  --fs-label: 0.7rem; /* mono labels, readouts */
+  --fs-micro: 0.62rem; /* phase rules, crop-mark text */
+  --fs-jp: 0.66rem;
+
+  --ls-label: 0.16em; /* mono needs generous tracking to read as UI */
+  --ls-micro: 0.22em;
+  --ls-hero: -0.01em; /* big display type tightens up */
+
+  /* SPACING */
+  --gutter: 56px;
+  --max-w: 1180px;
+  --row-h: 46px;
+
+  /* SECTOR COLOURS
+     F1 timing language. These are SEMANTIC, not decorative:
+     purple = fastest/latest, green = solid, amber = revisit.
+     They shift per theme because saturated colour reads very
+     differently on bone vs near-black.
+  */
+  --sector-purple: #8b5cf6;
+  --sector-green: #3f9c5a;
+  --sector-amber: #c8963e;
+
+  // MOTION
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --dur-fast: 0.18s;
+  --dur-mid: 0.4s;
+  --dur-slow: 0.9s;
+}
+
+/* LIGHT
+   Bone, not white. The warmth is what separates "designed"
+   from "default light mode".
+*/
+:root,
+[data-theme="light"] {
+  --bg: #e8e4db;
+  --bg-raised: #ded9ce; /* row hover, subtle panels */
+  --ink: #1a1815; /* not black - warm near-black */
+  --ink-soft: #6b665c;
+  --ink-faint: #8a8478;
+  --rule: #c4bfb3;
+  --rule-strong: #1a1815;
+  --accent: #c1121f;
+
+  --sector-purple: #7c3aed;
+  --sector-green: #3f9c5a;
+  --sector-amber: #b8862c;
+
+  --grain-opacity: 0.5;
+  --canvas-alpha: 0.14; /* wireframe needs more presence on light */
+}
+
+/* DARK */
+[data-theme="dark"] {
+  --bg: #0f0e0d;
+  --bg-raised: #191716;
+  --ink: #f3f1ea;
+  --ink-soft: #8a8478;
+  --ink-faint: #5c5850;
+  --rule: #2a2724;
+  --rule-strong: #4a4740;
+  --accent: #c1121f;
+
+  --sector-purple: #a855f7;
+  --sector-green: #4ade80;
+  --sector-amber: #fbbf24;
+
+  --grain-opacity: 0.4;
+  --canvas-alpha: 0.05;
+}
+
+/* respect OS preference on first visit, before any manual toggle */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --bg: #0f0e0d;
+    --bg-raised: #191716;
+    --ink: #f3f1ea;
+    --ink-soft: #8a8478;
+    --ink-faint: #5c5850;
+    --rule: #2a2724;
+    --rule-strong: #4a4740;
+    --sector-purple: #a855f7;
+    --sector-green: #4ade80;
+    --sector-amber: #fbbf24;
+    --grain-opacity: 0.4;
+    --canvas-alpha: 0.05;
+  }
+}

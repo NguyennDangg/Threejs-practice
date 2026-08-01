@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 22 - baked background</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+        background: #0d0c0b;
+      }
+
+      canvas {
+        display: block;
+      }
+
+      .hud {
+        position: fixed;
+        bottom: 22px;
+        left: 22px;
+        z-index: 10;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        color: #8a8478;
+        line-height: 1.8;
+        pointer-events: none;
+      }
+
+      .hud .accent {
+        color: #c1121f;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="hud">
+      <span class="accent">LOG_22</span> — BAKED BACKGROUND<br />
+      blur.png + grain.png · sampled, not computed
+    </div>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

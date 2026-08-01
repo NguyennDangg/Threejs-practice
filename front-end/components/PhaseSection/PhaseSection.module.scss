@@ -1,0 +1,27 @@
+.phase {
+  margin-bottom: 48px;
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 12px;
+}
+
+.label {
+  color: var(--ink-faint);
+  letter-spacing: var(--ls-micro);
+  white-space: nowrap;
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.rows {
+  display: flex;
+  flex-direction: column;
+}

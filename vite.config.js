@@ -1,8 +1,10 @@
 import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
 export default defineConfig({
   root: "./",
+  plugins: [react()],
   resolve: {
     dedupe: ["three"],
   },
@@ -52,6 +54,7 @@ export default defineConfig({
         day19a: resolve(__dirname, "day-19a/index.html"),
         day20: resolve(__dirname, "day-20/index.html"),
         day21: resolve(__dirname, "day-21/index.html"),
+        day22: resolve(__dirname, "day-22-baked-background/index.html"),
       },
     },
   },

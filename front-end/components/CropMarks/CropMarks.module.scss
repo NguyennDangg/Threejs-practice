@@ -1,0 +1,150 @@
+.marks {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+
+.mark {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  opacity: 0.55;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    background: var(--ink);
+  }
+
+  &::before {
+    height: 1px;
+    width: 16px;
+  }
+
+  &::after {
+    width: 1px;
+    height: 16px;
+  }
+}
+
+.tl {
+  top: 20px;
+  left: 20px;
+
+  &::before {
+    top: 0;
+    left: 0;
+  }
+  &::after {
+    top: 0;
+    left: 0;
+  }
+}
+
+.tr {
+  top: 20px;
+  right: 20px;
+
+  &::before {
+    top: 0;
+    right: 0;
+  }
+  &::after {
+    top: 0;
+    right: 0;
+  }
+}
+
+.bl {
+  bottom: 20px;
+  left: 20px;
+
+  &::before {
+    bottom: 0;
+    left: 0;
+  }
+  &::after {
+    bottom: 0;
+    left: 0;
+  }
+}
+
+.br {
+  bottom: 20px;
+  right: 20px;
+
+  &::before {
+    bottom: 0;
+    right: 0;
+  }
+  &::after {
+    bottom: 0;
+    right: 0;
+  }
+}
+
+.stamp {
+  position: absolute;
+  bottom: 52px;
+  font-size: 0.56rem;
+  letter-spacing: 0.28em;
+  color: var(--ink-faint);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+.stampL {
+  left: 20px;
+  transform-origin: left bottom;
+  transform: rotate(-90deg) translateX(0);
+}
+
+.stampR {
+  right: 20px;
+  transform-origin: right bottom;
+  transform: rotate(90deg) translateX(0);
+}
+
+@media (max-width: 900px) {
+  .stamp {
+    display: none; /* edge stamps crowd the content on narrow screens */
+  }
+
+  .mark {
+    width: 12px;
+    height: 12px;
+
+    &::before {
+      width: 12px;
+    }
+    &::after {
+      height: 12px;
+    }
+  }
+
+  .tl,
+  .tr {
+    top: 10px;
+  }
+  .bl,
+  .br {
+    bottom: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mark {
+    width: 9px;
+    height: 9px;
+    opacity: 0.45;
+
+    &::before {
+      width: 9px;
+    }
+    &::after {
+      height: 9px;
+    }
+  }
+}

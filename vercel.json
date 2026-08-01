@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/((?!day-|assets/|fonts/).*)", "destination": "/index.html" }
+  ]
+}

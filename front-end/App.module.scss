@@ -1,0 +1,31 @@
+.sheet {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 34px 46px 60px;
+  min-height: 100vh;
+}
+
+@media (max-width: 900px) {
+  .sheet {
+    padding: 22px 22px 40px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .sheet {
+    padding: 28px 32px 50px;
+  }
+}
+
+@media (max-width: 760px) {
+  .sheet {
+    padding: 22px 22px 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sheet {
+    padding: 18px 16px 36px;
+  }
+}

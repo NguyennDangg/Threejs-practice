@@ -1,0 +1,28 @@
+.strip {
+  display: flex;
+  gap: 42px;
+  padding: 12px 0;
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.cell {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.label {
+  color: var(--ink-faint);
+}
+
+.value {
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.green {
+  color: var(--sector-green);
+}

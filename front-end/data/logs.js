@@ -1,0 +1,467 @@
+/*
+   LOGS - the single source of truth for the archive
+   The grid, filter counts, phase sections, and header readouts all
+   derive from this array, adding a log = one object
+
+   sector: F1 timing language, used sparingly so it stays meaningful
+     "purple" - capstone / latest (fastest overall)
+     "green"  - solid milestone (personal best)
+     null     - standard run, no marker
+*/
+
+export const PHASES = [
+  { id: 1, label: "FOUNDATIONS", jp: "基礎" },
+  { id: 2, label: "GLSL FUNDAMENTALS", jp: "シェーダー基礎" },
+  { id: 3, label: "SHADER UI", jp: "計器" },
+  { id: 4, label: "TECHNIQUES", jp: "技法" },
+  { id: 5, label: "SHADER BACKGROUNDS", jp: "背景" },
+  { id: 6, label: "DIMENSION", jp: "次元" },
+];
+
+export const CATEGORIES = [
+  { id: "all", label: "ALL" },
+  { id: "fundamentals", label: "FUNDAMENTALS" },
+  { id: "glsl", label: "GLSL" },
+  { id: "effects", label: "EFFECTS" },
+  { id: "3d", label: "3D" },
+];
+
+export const LOGS = [
+  // PHASE 01
+  {
+    id: "LOG_01",
+    title: "ORIGIN",
+    desc: "A simple rotation. Nothing more.",
+    tech: "BufferGeometry · Mesh · Render Loop",
+    href: "/day-01-rotating-cube/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: "amber",
+  },
+  {
+    id: "LOG_01a",
+    title: "PROTOTYPE",
+    desc: "The future remains incomplete.",
+    tech: "Credits: Fireship",
+    href: "/day01-project/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: "amber",
+  },
+  {
+    id: "LOG_02",
+    title: "CONTROL",
+    desc: "Interaction has been established.",
+    tech: "OrbitControls · dat.GUI",
+    href: "/day-02-orbitctrl-datgui/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: null,
+  },
+  {
+    id: "LOG_03",
+    title: "OBSERVATION",
+    desc: "Light changes what is perceived.",
+    tech: "Lighting · PBR Materials",
+    href: "/day-03-lighting-materials/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: null,
+  },
+  {
+    id: "LOG_04",
+    title: "MATERIALIZATION",
+    desc: "Memory translated into geometry.",
+    tech: "GLTF Loader · HDR Environment",
+    href: "/day-04-gltf-hdr/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: "green",
+  },
+  {
+    id: "LOG_05",
+    title: "RECONSTRUCTION",
+    desc: "Old structures rebuilt under new rules.",
+    tech: "Modern API · 4-Day Revision",
+    href: "/day-05-modern-api/index.html",
+    category: "fundamentals",
+    phase: 1,
+    sector: "amber",
+  },
+
+  // PHASE 02
+  {
+    id: "LOG_06",
+    title: "SYNTHESIS",
+    desc: "Pixels obey mathematical law.",
+    tech: "GLSL · Fragment Shader",
+    href: "/day-06-glsl-fundamentals/index.html",
+    category: "glsl",
+    phase: 2,
+    sector: "green",
+  },
+  {
+    id: "LOG_06a",
+    title: "FORM",
+    desc: "Distance gives shape to the void.",
+    tech: "GLSL · Distance Fields",
+    href: "/day-06-glsl-fundamentals/06a-shapes.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_06b",
+    title: "REPETITION",
+    desc: "Simple rules produce endless variation.",
+    tech: "GLSL · Modulo Patterns",
+    href: "/day-06-glsl-fundamentals/06b-patterns.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_06c",
+    title: "DETECTION",
+    desc: "Sweeping arcs reveal what was hidden.",
+    tech: "GLSL · Angle & Distance",
+    href: "/day-06-glsl-fundamentals/06c-radar.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_06d",
+    title: "TIME",
+    desc: "Nothing remains static forever.",
+    tech: "GLSL · u_time Uniform",
+    href: "/day-06-glsl-fundamentals/06d-animated.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_06e",
+    title: "RESONANCE",
+    desc: "The signal finds its echo.",
+    tech: "GLSL · Reference Study",
+    href: "/day-06-glsl-fundamentals/06e-song.html",
+    category: "glsl",
+    phase: 2,
+    sector: "green",
+  },
+  {
+    id: "LOG_06f",
+    title: "METRIC",
+    desc: "The choice of distance shapes reality.",
+    tech: "GLSL · Manhattan Distance",
+    href: "/day-06-glsl-fundamentals/06f-diamond.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_06g",
+    title: "GRADIENT",
+    desc: "Direction emerges from change.",
+    tech: "GLSL · Finite Differences",
+    href: "/day-06-glsl-fundamentals/06g-gradient-warp.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_07",
+    title: "CONVERGENCE",
+    desc: "Separate studies resolve into a single form.",
+    tech: "GLSL · Interactive Composition",
+    href: "/day-07/index.html",
+    category: "glsl",
+    phase: 2,
+    sector: "green",
+  },
+  {
+    id: "LOG_07a",
+    title: "DISPLACEMENT",
+    desc: "The structure shifts from its origin.",
+    tech: "GLSL · Coordinate Shear",
+    href: "/day-07/07a-shear-only.html",
+    category: "glsl",
+    phase: 2,
+    sector: null,
+  },
+  {
+    id: "LOG_08",
+    title: "INTEGRATION",
+    desc: "Custom logic enters the rendering pipeline.",
+    tech: "Three.js · ShaderMaterial",
+    href: "/day-08-shader-material/index.html",
+    category: "glsl",
+    phase: 2,
+    sector: "green",
+  },
+
+  // PHASE 03
+  {
+    id: "LOG_09",
+    title: "INDICATION",
+    desc: "Motion becomes measurable.",
+    tech: "Shader UI · Linear Gauge",
+    href: "/day-09-throttle-bar/index.html",
+    category: "glsl",
+    phase: 3,
+    sector: null,
+  },
+  {
+    id: "LOG_09a",
+    title: "TELEMETRY",
+    desc: "The system reveals its condition.",
+    tech: "Shader UI · Radial Gauge",
+    href: "/day-09a-rpm-arc/index.html",
+    category: "glsl",
+    phase: 3,
+    sector: null,
+  },
+  {
+    id: "LOG_09b",
+    title: "DESIGNATION",
+    desc: "The current state receives a name.",
+    tech: "Shader UI · Canvas Texture",
+    href: "/day-09b-gear-indicator/index.html",
+    category: "glsl",
+    phase: 3,
+    sector: null,
+  },
+  {
+    id: "LOG_09c",
+    title: "SEGMENTATION",
+    desc: "The whole is divided for analysis.",
+    tech: "Shader UI · Discrete Segments",
+    href: "/day-09c-sector-times/index.html",
+    category: "glsl",
+    phase: 3,
+    sector: null,
+  },
+  {
+    id: "LOG_10",
+    title: "COHESION",
+    desc: "Separate components form a unified interface.",
+    tech: "Shader UI · HUD Composition",
+    href: "/day-10-hud-assembly/index.html",
+    category: "glsl",
+    phase: 3,
+    sector: "green",
+  },
+
+  // PHASE 04
+  {
+    id: "LOG_11",
+    title: "TRAJECTORY",
+    desc: "The observer follows a predetermined path.",
+    tech: "CatmullRomCurve3 · Scroll Camera",
+    href: "/day-11-camera-curves/index.html",
+    category: "3d",
+    phase: 4,
+    sector: "green",
+  },
+  {
+    id: "LOG_12",
+    title: "ATMOSPHERE",
+    desc: "The environment acquires its own motion.",
+    tech: "ShaderMaterial · Weather FX",
+    href: "/day-12-particles/index.html",
+    category: "effects",
+    phase: 4,
+    sector: null,
+  },
+  {
+    id: "LOG_13",
+    title: "MULTIPLICITY",
+    desc: "One structure manifests as many.",
+    tech: "InstancedMesh · Instance Matrix",
+    href: "/day-13-instanced/index.html",
+    category: "3d",
+    phase: 4,
+    sector: "amber",
+  },
+  {
+    id: "LOG_14",
+    title: "PERCEPTION",
+    desc: "The image extends beyond the scene.",
+    tech: "EffectComposer · Bloom · ShaderPass",
+    href: "/day-14-post-processing/index.html",
+    category: "effects",
+    phase: 4,
+    sector: "green",
+  },
+  {
+    id: "LOG_15",
+    title: "CONTINUITY",
+    desc: "No state changes without motion.",
+    tech: "Lerp · Timeline · Scene Transition",
+    href: "/day-15-transitions/index.html",
+    category: "effects",
+    phase: 4,
+    sector: null,
+  },
+
+  // PHASE 05
+  {
+    id: "LOG_16",
+    title: "ABSTRACTION",
+    desc: "Detail yields to deliberate form.",
+    tech: "ShaderPass · Pixelation Shader",
+    href: "/day-16-pixelation/index.html",
+    category: "effects",
+    phase: 5,
+    sector: "green",
+  },
+  {
+    id: "LOG_16a",
+    title: "DISTORTION",
+    desc: "Order bends without breaking.",
+    tech: "Domain Warp · UV Distortion",
+    href: "/day-16a-domain-warp-pixelated/index.html",
+    category: "effects",
+    phase: 5,
+    sector: null,
+  },
+  {
+    id: "LOG_16b",
+    title: "PERSISTENCE",
+    desc: "What remains continues to shape what follows.",
+    tech: "Ping-Pong FBO · Feedback Loop",
+    href: "/day-16b-feedback-ink/index.html",
+    category: "effects",
+    phase: 5,
+    sector: "green",
+  },
+  {
+    id: "LOG_16c",
+    title: "IMMUTABILITY",
+    desc: "What is established no longer requires repetition.",
+    tech: "Render Target · Texture Baking",
+    href: "/day-16c-bake-to-texture/index.html",
+    category: "effects",
+    phase: 5,
+    sector: null,
+  },
+  {
+    id: "LOG_16d",
+    title: "MANIFESTATION",
+    desc: "Presence emerges according to hidden conditions.",
+    tech: "Texture Baking · Dither Reveal",
+    href: "/day-16d-dither-appear/index.html",
+    category: "effects",
+    phase: 5,
+    sector: null,
+  },
+  {
+    id: "LOG_16e",
+    title: "CULMINATION",
+    desc: "Separate systems operate as one.",
+    tech: "Multi-Pass Pipeline · Shader Composition",
+    href: "/day-16e-capstone/index.html",
+    category: "effects",
+    phase: 5,
+    sector: "purple",
+  },
+  {
+    id: "LOG_17",
+    title: "REANIMATION",
+    desc: "What was fixed begins to move again.",
+    tech: "Baked Typography · Multi-Pass Shader",
+    href: "/day-17/index.html",
+    category: "effects",
+    phase: 5,
+    sector: "green",
+  },
+  {
+    id: "LOG_18",
+    title: "PASSAGE",
+    desc: "No destination is reached without transition.",
+    tech: "Screen Transition · Dither Overlay",
+    href: "/day-18/index.html",
+    category: "effects",
+    phase: 5,
+    sector: null,
+  },
+
+  // PHASE 06
+  {
+    id: "LOG_19",
+    title: "TRANSFORMATION",
+    desc: "Form itself becomes programmable.",
+    tech: "Vertex Shader · Noise Displacement",
+    href: "/day-19/index.html",
+    category: "3d",
+    phase: 6,
+    sector: "green",
+  },
+  {
+    id: "LOG_19a",
+    title: "INTERFERENCE",
+    desc: "What is observed begins to break down.",
+    tech: "Raycasting · Post-Processing",
+    href: "/day-19a/index.html",
+    category: "3d",
+    phase: 6,
+    sector: null,
+  },
+  {
+    id: "LOG_20",
+    title: "PERSPECTIVE",
+    desc: "The subject does not change. Only where you stand to see it.",
+    tech: "Easing Choreography · Camera Handoff",
+    href: "/day-20/index.html",
+    category: "3d",
+    phase: 6,
+    sector: "green",
+  },
+  {
+    id: "LOG_21",
+    title: "PRESENTATION",
+    desc: "The work is complete. Only its display remains.",
+    tech: "Environment Map · ShadowMaterial · IBL",
+    href: "/day-21/index.html",
+    category: "3d",
+    phase: 6,
+    sector: "purple",
+  },
+  {
+    id: "LOG_22",
+    title: "SEDIMENT",
+    desc: "What is made once can be read forever.",
+    tech: "Baked Textures · Texture Sampling · Tiling",
+    href: "/day-22-baked-background/index.html",
+    category: "effects",
+    phase: 5,
+    sector: "purple",
+  },
+];
+
+// DERIVED
+
+// counts per category, for the filter labels (ALL · 39, GLSL · 16, …)
+export const categoryCounts = CATEGORIES.reduce((acc, c) => {
+  acc[c.id] =
+    c.id === "all"
+      ? LOGS.length
+      : LOGS.filter((l) => l.category === c.id).length;
+  return acc;
+}, {});
+
+// sessions = unique day numbers (LOG_06a and LOG_06 are the same session)
+export const sessionCount = new Set(
+  LOGS.map((l) => l.id.match(/LOG_(\d+)/)?.[1]).filter(Boolean),
+).size;
+
+export function logsByPhase(category = "all") {
+  return PHASES.map((phase) => ({
+    ...phase,
+    logs: LOGS.filter(
+      (l) =>
+        l.phase === phase.id && (category === "all" || l.category === category),
+    ),
+  })).filter((p) => p.logs.length > 0); // drop empty phases when filtering
+}

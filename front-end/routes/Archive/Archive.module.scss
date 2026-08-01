@@ -1,0 +1,43 @@
+.header {
+  padding-top: 54px;
+}
+
+.eyebrow {
+  color: var(--ink-faint);
+  letter-spacing: var(--ls-micro);
+  margin: 0 0 18px;
+}
+
+.title {
+  font-size: var(--fs-hero);
+  font-weight: 700;
+  letter-spacing: var(--ls-hero);
+  line-height: 1;
+  margin: 0 0 10px;
+  color: var(--ink);
+}
+
+.sub {
+  color: var(--accent);
+  margin: 0 0 34px;
+}
+
+.empty {
+  color: var(--ink-faint);
+  padding: 60px 0;
+  text-align: center;
+}
+
+.footer {
+  margin-top: 70px;
+  padding: 22px 0 60px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+}
+
+.scenario {
+  margin: 14px 0 0;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+}

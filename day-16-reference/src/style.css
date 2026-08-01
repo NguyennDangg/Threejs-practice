@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/fonts/JetBrainsMono-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -7,7 +21,7 @@
 body {
   background: #0a0a0a;
   color: #f4f1ea;
-  font-family: "Space Mono", monospace;
+  font-family: "JetBrains Mono", monospace;
   padding: 28px;
 }
 

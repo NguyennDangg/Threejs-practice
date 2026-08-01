@@ -1,0 +1,24 @@
+.line {
+  margin: 14px 0 0;
+  text-transform: lowercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-faint);
+  min-height: 1.4em;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,257 @@
+.cover {
+  position: relative;
+  padding-top: 44px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid var(--rule);
+}
+
+.classBar {
+  display: flex;
+  justify-content: space-between;
+  background: var(--ink);
+  padding: 7px 14px;
+  margin-bottom: 40px;
+}
+
+.classText {
+  color: var(--bg);
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  font-weight: 500;
+}
+
+.coverBody {
+  display: flex;
+  align-items: flex-start;
+  gap: 60px;
+  flex-wrap: wrap;
+}
+
+.docNumber {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.docLabel {
+  color: var(--ink-faint);
+  letter-spacing: var(--ls-micro);
+}
+
+.docValue {
+  font-size: clamp(4rem, 11vw, 8rem);
+  font-weight: 700;
+  line-height: 0.82;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+
+.fields {
+  margin: 0;
+  padding-top: 8px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.field {
+  display: flex;
+  gap: 18px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--rule);
+
+  &:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  dt,
+  dd {
+    margin: 0;
+  }
+}
+
+.fieldLabel {
+  color: var(--ink-faint);
+  min-width: 140px;
+  letter-spacing: 0.18em;
+}
+
+.fieldValue {
+  color: var(--ink);
+  letter-spacing: 0.12em;
+}
+
+.green {
+  color: var(--sector-green);
+}
+
+// rotated stamp - over the sheet, slightly off-angle
+.stamp {
+  position: absolute;
+  right: 10px;
+  bottom: 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 20px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  transform: rotate(-8deg);
+  opacity: 0.62;
+  pointer-events: none;
+
+  @media (max-width: 760px) {
+    position: static;
+    transform: rotate(-4deg);
+    align-self: flex-start;
+    margin-top: 28px;
+  }
+}
+
+.stampSub {
+  font-size: 0.58rem;
+  letter-spacing: 0.2em;
+  font-weight: 400;
+}
+
+// BLOCKS
+.block {
+  padding: 38px 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.blockHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+
+.blockLabel {
+  color: var(--accent);
+  letter-spacing: var(--ls-micro);
+  white-space: nowrap;
+}
+
+.rule {
+  flex: 1;
+  height: 1px;
+  background: var(--rule);
+}
+
+.body {
+  max-width: 620px;
+
+  p {
+    font-size: var(--fs-body);
+    line-height: 1.8;
+    color: var(--ink-soft);
+    margin: 0 0 16px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.sep {
+  color: var(--rule);
+  margin: 0 8px;
+}
+
+// transmission links
+.links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 320px;
+
+  li {
+    border-bottom: 1px solid var(--rule);
+
+    &:first-child {
+      border-top: 1px solid var(--rule);
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    padding: 15px 4px;
+    transition: padding-left var(--dur-fast) var(--ease-out);
+
+    &:hover {
+      .linkName {
+        color: var(--accent);
+      }
+    }
+  }
+}
+
+.linkName {
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  min-width: 150px;
+  transition: color var(--dur-fast) ease;
+}
+
+.linkMeta {
+  color: var(--ink-faint);
+  text-transform: none;
+  flex: 1;
+}
+
+.credits {
+  font-size: 0.92rem;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+// SIGNATURE
+.signature {
+  padding: 38px 0 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.sigLabel {
+  color: var(--ink-faint);
+  letter-spacing: var(--ls-micro);
+}
+
+.sigName {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+}
+
+.sigRole {
+  color: var(--ink-faint);
+  letter-spacing: 0.14em;
+}
+
+// FOOTER
+.footer {
+  margin-top: 50px;
+  padding: 22px 0 60px;
+  border-top: 1px solid var(--rule);
+  color: var(--ink-faint);
+}
+
+.margin {
+  margin: 26px 0 0;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--ink-faint);
+  opacity: 0.75;
+}
