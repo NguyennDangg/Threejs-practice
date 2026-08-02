@@ -46,7 +46,7 @@ export default function Dossier() {
               label="CONTENTS"
               value={`${LOGS.length} ENTRIES / ${sessionCount} SESSIONS`}
             />
-            <Field label="OPENED" value="2026.06" />
+            <Field label="OPENED" value="2026.06.17" />
             <Field label="CLASSIFICATION" value="DEVELOPMENT" tone="green" />
             <Field label="ORIGIN" value="HO CHI MINH CITY, VN" />
           </dl>
