@@ -22,19 +22,28 @@ body {
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
 
-  /* theme swap is a transition, not a jump */
+  // theme swap is a transition, not a jump
   transition:
     background-color var(--dur-mid) ease,
     color var(--dur-mid) ease;
 }
 
-/* mono labels — the workhorse class for the whole motorsport read */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+::-moz-selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+// mono labels — the workhorse class for the whole motorsport read
 .mono {
   font-family: var(--font-mono);
   font-size: var(--fs-label);
   letter-spacing: var(--ls-label);
   text-transform: uppercase;
-  /* fixed-width digits: stops the uptime counter jittering */
+  // fixed-width digits: stops the uptime counter jittering
   font-variant-numeric: tabular-nums;
 }
 

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 22c - Capstone</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+
+      /* Palette classes carried over from Dangify's _nerv.scss / _seele.scss.
+         SEELE is the LIGHT one — the toggle flips the whole page, it isn't
+         two shades of dark. background-color is set inline from JS so it
+         stays locked to the shader's back colour through the transition;
+         everything else transitions here. */
+      .app--nerv {
+        --accent: #c1121f;
+        --border-idle: rgba(193, 18, 31, 0.25);
+        --text-muted: #707070;
+        --text-active: #f0f0f0;
+      }
+
+      .app--seele {
+        --accent: #1a3a5c;
+        --border-idle: rgba(26, 58, 92, 0.25);
+        --text-muted: #666677;
+        --text-active: #0a0a14;
+      }
+
+      html,
+      body {
+        height: 100%;
+        overflow: hidden;
+      }
+
+      body {
+        background: #0a0a0f;
+        /* NERV --bg-primary; JS takes over on first paint */
+        transition: color 0.4s ease;
+      }
+
+      canvas {
+        display: block;
+      }
+
+      .palette {
+        position: fixed;
+        bottom: 22px;
+        left: 22px;
+        z-index: 10;
+        display: flex;
+        gap: 10px;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+      }
+
+      .palette button {
+        background: transparent;
+        border: 1px solid var(--border-idle);
+        color: var(--text-muted);
+        font-family: inherit;
+        font-size: 11px;
+        letter-spacing: 0.14em;
+        padding: 8px 14px;
+        cursor: pointer;
+        transition:
+          border-color 0.3s,
+          color 0.3s;
+      }
+
+      .palette button:hover,
+      .palette button:focus-visible {
+        border-color: var(--accent);
+        color: var(--accent);
+      }
+
+      .palette button.active {
+        border-color: var(--accent);
+        color: var(--text-active);
+      }
+
+      /* Credit stays on the page, not just in the source. */
+      .credit {
+        position: fixed;
+        bottom: 26px;
+        right: 22px;
+        z-index: 10;
+        font-family: "JetBrains Mono", ui-monospace, monospace;
+        font-size: 11px;
+        letter-spacing: 0.12em;
+        color: var(--text-muted);
+        transition: color 0.3s;
+      }
+
+      .credit a {
+        color: inherit;
+        text-decoration: none;
+        border-bottom: 1px solid var(--border-idle);
+      }
+
+      .credit a:hover {
+        color: var(--accent);
+        border-bottom-color: var(--accent);
+      }
+    </style>
+  </head>
+
+  <body class="app--nerv">
+    <div id="app"></div>
+
+    <div class="palette">
+      <button data-palette="NERV" class="active" aria-pressed="true">
+        NERV
+      </button>
+      <button data-palette="SEELE" aria-pressed="false">SEELE</button>
+    </div>
+
+    <p class="credit">
+      technique after
+      <a href="https://p5aholic.me/" target="_blank" rel="noopener"
+        >Keita Yamada</a
+      >
+      · noise
+      <a
+        href="https://github.com/stegu/webgl-noise"
+        target="_blank"
+        rel="noopener"
+        >stegu/webgl-noise</a
+      >
+    </p>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

@@ -1,6 +1,13 @@
 import styles from "./FilterBar.module.scss";
 
-export default function FilterBar({ categories, counts, active, onChange }) {
+export default function FilterBar({
+  categories,
+  counts,
+  active,
+  onChange,
+  order,
+  onOrderChange,
+}) {
   return (
     <div className={styles.bar}>
       <span className={`mono ${styles.prompt}`}>FILTER</span>
@@ -13,6 +20,13 @@ export default function FilterBar({ categories, counts, active, onChange }) {
           {c.label} · {counts[c.id]}
         </button>
       ))}
+
+      <button
+        className={`mono ${styles.order}`}
+        onClick={() => onOrderChange(order === "asc" ? "desc" : "asc")}
+      >
+        {order === "asc" ? "OLDEST LOG ↓" : "NEWEST LOG ↑"}
+      </button>
     </div>
   );
 }

@@ -54,7 +54,7 @@ export default function Dossier() {
 
         <div className={styles.stamp} aria-hidden="true">
           <span>ACTIVE</span>
-          <span className={styles.stampSub}>2026.06</span>
+          <span className={styles.stampSub}>2026.06.17</span>
         </div>
       </section>
 

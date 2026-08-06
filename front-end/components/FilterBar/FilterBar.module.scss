@@ -38,3 +38,30 @@
     color: var(--bg);
   }
 }
+
+.order {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid var(--rule);
+  color: var(--ink-faint);
+  font-family: var(--font-mono);
+  font-size: var(--fs-label);
+  letter-spacing: var(--ls-label);
+  padding: 5px 11px;
+  cursor: pointer;
+  transition:
+    color var(--dur-fast) ease,
+    border-color var(--dur-fast) ease;
+
+  &:hover {
+    color: var(--ink);
+    border-color: var(--rule-strong);
+  }
+
+  @media (max-width: 760px) {
+    margin-left: 0;
+    width: 100%;
+    text-align: left;
+    margin-top: 8px;
+  }
+}

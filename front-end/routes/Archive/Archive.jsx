@@ -15,9 +15,10 @@ import Clock from "../../components/Clock/Clock.jsx";
 
 export default function Archive() {
   const [category, setCategory] = useState("all");
+  const [order, setOrder] = useState("asc");
 
   // recompute grouped logs only when the filter changes
-  const phases = useMemo(() => logsByPhase(category), [category]);
+  const phases = useMemo(() => logsByPhase(category, order), [category, order]);
   const visible = useMemo(
     () => phases.reduce((n, p) => n + p.logs.length, 0),
     [phases],
@@ -42,6 +43,8 @@ export default function Archive() {
         counts={categoryCounts}
         active={category}
         onChange={setCategory}
+        order={order}
+        onOrderChange={setOrder}
       />
 
       {phases.map((phase) => (

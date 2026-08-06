@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Day 22 - Baked background</title>
+    <title>Day 22b - Anchored wave drift</title>
     <style>
       * {
         margin: 0;
@@ -14,6 +14,10 @@
       body {
         height: 100%;
         overflow: hidden;
+        /* The canvas is transparent wherever blurAlpha falls to zero — the
+           whole left side of the frame — so this colour is not decoration,
+           it composites into the piece. #ffffff was fighting COLOR_BACK
+           (#14181c) and blowing out the falloff into a hard bright edge. */
         background: #0d0c0b;
       }
 
@@ -42,8 +46,8 @@
 
   <body>
     <div class="hud">
-      <span class="accent">LOG_22</span> — BAKED BACKGROUND<br />
-      blur.png + grain.png · sampled, not computed
+      <span class="accent">LOG_22b</span> — Anchored wave drift<br />
+      symmetric bake, composed in-shader · after Keita Yamada (p5aholic.me)
     </div>
     <script type="module" src="./src/main.js"></script>
   </body>

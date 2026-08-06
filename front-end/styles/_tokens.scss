@@ -1,11 +1,11 @@
 /*
-   TOKENS - the single source of truth for colour, type, spacing.
+   TOKENS - the single source of truth for colour, type, spacing
    Every component reads from here. Change a value once, it
-   propagates everywhere.
+   propagates everywhere
 
    Themes work by swapping CSS custom properties on <html>, so
    toggling is instant and needs no re-render. Shaders read the same
-   values via getComputedStyle so canvas and DOM never drift apart.
+   values via getComputedStyle so canvas and DOM never drift apart
 */
 
 // FONTS
@@ -40,17 +40,17 @@
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-jp: "Noto Sans JP", var(--font-mono);
 
-  /* type scale - display sizes fluid, labels fixed small */
+  // type scale - display sizes fluid, labels fixed small
   --fs-hero: clamp(2rem, 5.5vw, 3.4rem);
-  --fs-title: 1.05rem; /* log row titles */
+  --fs-title: 1.05rem; // log row titles 
   --fs-body: 0.94rem;
-  --fs-label: 0.7rem; /* mono labels, readouts */
-  --fs-micro: 0.62rem; /* phase rules, crop-mark text */
+  --fs-label: 0.7rem; //* mono labels, readouts
+  --fs-micro: 0.62rem; //* phase rules, crop-mark text
   --fs-jp: 0.66rem;
 
-  --ls-label: 0.16em; /* mono needs generous tracking to read as UI */
+  --ls-label: 0.16em; // mono needs generous tracking to read as UI
   --ls-micro: 0.22em;
-  --ls-hero: -0.01em; /* big display type tightens up */
+  --ls-hero: -0.01em; // big display type tightens up
 
   /* SPACING */
   --gutter: 56px;
@@ -81,8 +81,8 @@
 :root,
 [data-theme="light"] {
   --bg: #e8e4db;
-  --bg-raised: #ded9ce; /* row hover, subtle panels */
-  --ink: #1a1815; /* not black - warm near-black */
+  --bg-raised: #ded9ce; // row hover, subtle panels
+  --ink: #1a1815; // not black - warm near-black
   --ink-soft: #6b665c;
   --ink-faint: #8a8478;
   --rule: #c4bfb3;
@@ -94,10 +94,10 @@
   --sector-amber: #b8862c;
 
   --grain-opacity: 0.5;
-  --canvas-alpha: 0.14; /* wireframe needs more presence on light */
+  --canvas-alpha: 0.14; // wireframe needs more presence on light
 }
 
-/* DARK */
+// DARK
 [data-theme="dark"] {
   --bg: #0f0e0d;
   --bg-raised: #191716;
@@ -116,7 +116,7 @@
   --canvas-alpha: 0.05;
 }
 
-/* respect OS preference on first visit, before any manual toggle */
+// respect OS preference on first visit, before any manual toggle
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme]) {
     --bg: #0f0e0d;

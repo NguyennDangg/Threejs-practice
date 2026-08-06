@@ -1,33 +1,3 @@
-// bake-bg-textures.mjs - background textures for the day-22 variants
-
-// Bake principle unchanged: make the expensive, organic stuff ONCE as an
-// image, then the shader just samples it. A painted blur has softer,
-// irregular falloff that a smoothstep can't fake; real grain has coarse
-// density structure underneath the speckle that a per-pixel hash() can't
-// produce. Everything a hash IS good at (cheap, uncorrelated, per-pixel)
-// stays in the shader - see the warp-angle note at the bottom
-
-// Run:   node bake-bg-textures.mjs
-// Needs: npm install canvas
-// Out:   public/assets/blur.png   1024²  alpha-carrying radial falloff
-//        public/assets/grain.png   512²  tileable greyscale, two octaves
-
-// DO NOT re-encode these as lossy WebP/JPEG
-// Lossy WebP (VP8) has no alpha channel at all. blur.webp silently
-// became opaque white, which made blurAlpha a flat 1.0 rectangle and
-// killed every `1.0 - blurAlpha` coupling downstream — the glow shape
-// stopped existing while the code still looked correct.
-// Lossy compression on noise also smears per-pixel independence, which
-// is the entire point of a grain texture
-
-// If you want WebP, it has to be lossless (VP8L, which carries alpha):
-//  cwebp -lossless -exact blur.png  -o blur.webp
-//  cwebp -lossless -exact grain.png -o grain.webp
-// Then verify with `identify -verbose` that blur still reports an alpha
-// channel. The VERIFY block below catches this on the PNG side; nothing
-// catches it after conversion except looking
-
-
 import { createCanvas } from "canvas";
 import { mkdirSync, writeFileSync } from "fs";
 import { join } from "path";
@@ -35,10 +5,6 @@ import { join } from "path";
 // CONFIG
 const OUT_DIR = "./public/assets";
 
-// Seeded, not Math.random(). day-22c is a FIXED composition — its frozen
-// centre and seed were tuned against one specific pair of textures. An
-// unseeded bake reshuffles the jitter every run and silently invalidates
-// that tuning. Change SEED deliberately, never accidentally
 const SEED = 20260806;
 
 const BLUR = {
@@ -59,7 +25,7 @@ const GRAIN = {
   contrast: 0.85, // pull toward mid-grey (day-22 centres on 0.5)
 };
 
-// mulberry32 — small, fast, good enough for texture jitter
+// mulberry32 - small, fast, good enough for texture jitter
 function mulberry32(a) {
   return function () {
     a |= 0;
@@ -70,18 +36,7 @@ function mulberry32(a) {
   };
 }
 
-/* BLUR
-   A soft radial glow, alpha-only. Many overlapping low-alpha circles at
-   jittered positions rather than one clean gradient — that irregularity
-   is what stops it reading as a CSS radial.
-
-   NOTE ON COMPOSITION: this bakes a SYMMETRIC, CENTRED blob. The
-   reference (p5aholic) samples his blur with raw uv, 1:1, no remap — the
-   off-centre composition is painted into his image. We do the opposite:
-   symmetric bake, composition done in-shader via the centre/scale remap.
-   Both are valid; ours is repositionable at runtime, his is one image.
-   Don't "fix" the symmetry here without also deleting the remap.
-*/
+// BLUR
 function bakeBlur(rand) {
   const S = BLUR.size;
   const canvas = createCanvas(S, S);
@@ -113,11 +68,7 @@ function bakeBlur(rand) {
   ctx.fillStyle = halo;
   ctx.fillRect(0, 0, S, S);
 
-  // NORMALISE.
-  // Source-over compositing is 1-(1-a)^n, not n*a — 26 layers at 0.055
-  // land around 0.78, never 1.0. In 22b/22c blurAlpha IS the canvas
-  // alpha, so an un-normalised bake caps the whole composite at 78%
-  // opacity and no amount of shader tuning gets it back
+  // NORMALISE
   const img = ctx.getImageData(0, 0, S, S);
   const data = img.data;
 
@@ -147,20 +98,7 @@ function bakeBlur(rand) {
   };
 }
 
-/* GRAIN
-   Fine greyscale noise, TILEABLE so the shader repeats it at any scale
-   without seams. Two octaves — coarse density clumps under fine speckle —
-   which is what emulsion actually looks like, and specifically the part
-   procedural noise is bad at.
-
-   Greyscale on purpose. The reference reads R as warp magnitude and G as
-   warp angle, which only works if the channels are independent — a
-   greyscale bake makes them identical and the "random" angle becomes a
-   deterministic function of the magnitude. Rather than bake two
-   uncorrelated octave sets (double the file, for a field that's
-   high-frequency either way), magnitude comes from here and the angle
-   comes from a hash() in the shader. Right tool per half
-*/
+// GRAIN
 function bakeGrain(rand) {
   const S = GRAIN.size;
   const N = GRAIN.coarseGrid;

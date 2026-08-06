@@ -11,11 +11,15 @@
 
 export const PHASES = [
   { id: 1, label: "FOUNDATIONS", jp: "基礎" },
-  { id: 2, label: "GLSL FUNDAMENTALS", jp: "シェーダー基礎" },
-  { id: 3, label: "SHADER UI", jp: "計器" },
-  { id: 4, label: "TECHNIQUES", jp: "技法" },
-  { id: 5, label: "SHADER BACKGROUNDS", jp: "背景" },
+  { id: 2, label: "SHADER LANGUAGE", jp: "言語" },
+  { id: 3, label: "INSTRUMENTS", jp: "計器" },
+  { id: 4, label: "MOTION", jp: "運動" },
+  { id: 5, label: "FIELDS", jp: "場" },
   { id: 6, label: "DIMENSION", jp: "次元" },
+  { id: 7, label: "TEXTURE", jp: "質感" },
+  { id: 8, label: "PERFORMANCE", jp: "性能" },
+  { id: 9, label: "SCENE CRAFT", jp: "演出" },
+  { id: 10, label: "SYSTEMS", jp: "統合" },
 ];
 
 export const CATEGORIES = [
@@ -24,6 +28,7 @@ export const CATEGORIES = [
   { id: "glsl", label: "GLSL" },
   { id: "effects", label: "EFFECTS" },
   { id: "3d", label: "3D" },
+  { id: "performance", label: "PERFORMANCE" },
 ];
 
 export const LOGS = [
@@ -428,6 +433,8 @@ export const LOGS = [
     phase: 6,
     sector: "purple",
   },
+
+  // PHASE 07
   {
     id: "LOG_22",
     title: "SEDIMENT",
@@ -435,8 +442,50 @@ export const LOGS = [
     tech: "Baked Textures · Texture Sampling · Tiling",
     href: "/day-22-baked-background/index.html",
     category: "effects",
-    phase: 5,
+    phase: 7,
     sector: "purple",
+  },
+  {
+    id: "LOG_22a",
+    title: "STRATA",
+    desc: "Noise folded through noise until it forgets the grid.",
+    tech: "Domain Warping · Simplex Noise · Polar Offsets",
+    href: "/day-22a/index.html",
+    category: "effects",
+    phase: 7,
+    sector: "green",
+  },
+  {
+    id: "LOG_22b",
+    title: "SWELL",
+    desc: "One wave is a machine. Two are a sea.",
+    tech: "Wave Drift · Mask Coupling · Screen-space Grain",
+    href: "/day-22b/index.html",
+    category: "effects",
+    phase: 7,
+    sector: "purple",
+  },
+  {
+    id: "LOG_22c",
+    title: "MONOLITH",
+    desc: "It moves, and it does not answer.",
+    tech: "Dual Motion · Alpha Compositing · Palette Lerp",
+    href: "/day-22c/index.html",
+    category: "effects",
+    phase: 7,
+    sector: "purple",
+  },
+
+  // PHASE 08
+  {
+    id: "LOG_23",
+    title: "ATTRITION",
+    desc: "The scene is no longer the subject.",
+    tech: "Draw Call Profiling · InstancedMesh · GPU Timer Query",
+    href: "/day-23/index.html",
+    category: "performance",
+    phase: 8,
+    sector: "green",
   },
 ];
 
@@ -456,12 +505,25 @@ export const sessionCount = new Set(
   LOGS.map((l) => l.id.match(/LOG_(\d+)/)?.[1]).filter(Boolean),
 ).size;
 
-export function logsByPhase(category = "all") {
-  return PHASES.map((phase) => ({
-    ...phase,
-    logs: LOGS.filter(
+export function logsByPhase(category = "all", order = "asc") {
+  const phases = PHASES.map((phase) => {
+    const logs = LOGS.filter(
       (l) =>
         l.phase === phase.id && (category === "all" || l.category === category),
-    ),
-  })).filter((p) => p.logs.length > 0); // drop empty phases when filtering
+    );
+
+    // sort by position in the LOGS array — that array IS the timeline,
+    // so index order is chronological order. no dates needed.
+    logs.sort((a, b) =>
+      order === "desc"
+        ? LOGS.indexOf(b) - LOGS.indexOf(a)
+        : LOGS.indexOf(a) - LOGS.indexOf(b),
+    );
+
+    return { ...phase, logs };
+  }).filter((p) => p.logs.length > 0);
+
+  // phases reverse too — otherwise "newest first" would still put
+  // PHASE 01 at the top with the newest of the OLD logs in it
+  return order === "desc" ? phases.reverse() : phases;
 }
