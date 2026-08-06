@@ -487,6 +487,16 @@ export const LOGS = [
     phase: 8,
     sector: "green",
   },
+  {
+    id: "LOG_24",
+    title: "NEGLECT",
+    desc: "Detail is owed only to what is seen.",
+    tech: "Frustum Culling · THREE.LOD · Instanced Binning",
+    href: "/day-24/index.html",
+    category: "performance",
+    phase: 8,
+    sector: "green",
+  },
 ];
 
 // DERIVED
