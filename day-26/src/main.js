@@ -50,8 +50,8 @@ function initLog26(canvas) {
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0x08080c);
 
-  // PMREM adds one texture you didn't load — worth knowing before you read
-  // GEO / TEX and think something leaked.
+  // PMREM adds one texture you didn't load - worth knowing before you read
+  // GEO / TEX and think something leaked
   const pmrem = new THREE.PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
 
@@ -95,7 +95,7 @@ function initLog26(canvas) {
   let spans = [];
   let marks = [];
 
-  // Normalise to a known footprint. Model authors agree on nothing.
+  // Normalise to a known footprint. Model authors agree on nothing
   function place(root) {
     const box = new THREE.Box3().setFromObject(root);
     const size = box.getSize(new THREE.Vector3());
@@ -182,7 +182,7 @@ function initLog26(canvas) {
     });
 
     overlay.stage("PROCESSING");
-    // Yield a frame so the overlay repaints before the blocking work.
+    // Yield a frame so the overlay repaints before the blocking work
     await new Promise((res) => requestAnimationFrame(res));
 
     const fit = place(r.scene);
@@ -201,7 +201,7 @@ function initLog26(canvas) {
     scene.add(r.scene);
 
     // Compile every program up front. Skip it and the first frame a
-    // material appears stalls — after the loader has already gone.
+    // material appears stalls - after the loader has already gone
     if (state.precompile) {
       overlay.stage("COMPILING");
       const c0 = performance.now();
@@ -223,14 +223,13 @@ function initLog26(canvas) {
     state.busy = false;
   }
 
-  // Cap applies live — no reload, because the bytes are already here.
+  // Cap applies live - no reload, because the bytes are already here
   function applyCap() {
     if (!current || state.busy) return;
     capTextures(current.root, CAPS[state.cap].size);
     report();
   }
 
-  // -------------------------------------------------------------------
   const el = document.createElement("div");
   el.innerHTML = `
     <style>
@@ -343,8 +342,8 @@ function initLog26(canvas) {
     profiler.begin();
     controls.update();
 
-    // Ease up to the FIT scale, not to 1 — easing to 1 is what sent the
-    // second car off-screen in the first version of this lab.
+    // Ease up to the FIT scale, not to 1 - easing to 1 is what sent the
+    // second car off-screen in the first version of this lab
     if (current && current.root.scale.x < current.fit * 0.999) {
       const s = current.root.scale.x;
       current.root.scale.setScalar(
