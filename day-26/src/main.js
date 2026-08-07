@@ -3,7 +3,6 @@
 // shader compilation, and the gap between file size and GPU memory
 
 // day 26 measures the seconds before the first frame - and the gap between what a file weighs and what it costs
-
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
@@ -90,7 +89,7 @@ function initLog26(canvas) {
     precompile: true,
     busy: false,
   };
-  const ledger = new Map(); // "KEY·CAP" → row
+  const ledger = new Map(); // "KEY·CAP" -> row
   let current = null; // { root, fit, bytes }
   let spans = [];
   let marks = [];

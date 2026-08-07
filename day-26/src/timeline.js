@@ -1,6 +1,6 @@
 // Horizontal spans on a shared time axis, plus a ledger that accumulates
-// across runs. The ledger is the real deliverable — one run tells you
-// nothing, three side by side tell you everything.
+// across runs. The ledger is the real deliverable - one run tells you
+// nothing, three side by side tell you everything
 
 const COLORS = {
   download: "#c1121f",

@@ -1,35 +1,35 @@
 // Loading instrumented by hand. GLTFLoader.load() hides the split between
-// "bytes arriving" and "bytes becoming a scene graph" — and that split is
+// "bytes arriving" and "bytes becoming a scene graph" - and that split is
 // the subject of this log. So: fetch ourselves, time the download, then
-// hand the buffer to loader.parse().
+// hand the buffer to loader.parse()
 
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { MeshoptDecoder } from "three/addons/libs/meshopt_decoder.module.js";
 
 const loader = new GLTFLoader();
 // Free if the file isn't meshopt-compressed, and means compressed files
-// just work if you ever get a build pipeline running.
+// just work if you ever get a build pipeline running
 loader.setMeshoptDecoder(MeshoptDecoder);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 // Reads the response as a stream and paces the chunks. A network throttle
-// you control in-page, without opening DevTools.
+// you control in-page, without opening DevTools
 export async function fetchThrottled(url, bytesPerSec, onProgress) {
   // no-store matters: without it the second run hits the browser cache,
-  // reports a 3ms download, and every comparison becomes meaningless.
+  // reports a 3ms download, and every comparison becomes meaningless
   const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) throw new Error(`${res.status} — ${url}`);
 
-  // Vite serves index.html for unknown paths, so a missing model arrives
-  // as HTML and fails later with a confusing JSON parse error.
+  // vite serves index.html for unknown paths, so a missing model arrives
+  // as HTML and fails later with a confusing JSON parse error
   const type = res.headers.get("content-type") || "";
   if (type.includes("text/html")) {
     throw new Error(`Got HTML, not a model — ${url} is a 404`);
   }
 
-  // With gzip on this is the COMPRESSED size. GLB is mostly incompressible
-  // binary, so the two are close, but not identical.
+  // with gzip on this is the COMPRESSED size. GLB is mostly incompressible
+  // binary, so the two are close, but not identical
   const total = Number(res.headers.get("content-length")) || 0;
 
   const reader = res.body.getReader();
@@ -82,7 +82,6 @@ export async function loadModel(url, bytesPerSec, onProgress) {
   };
 }
 
-// ---------------------------------------------------------------------
 function collectTextures(root) {
   const texs = new Set();
   root.traverse((o) => {
@@ -97,10 +96,10 @@ function collectTextures(root) {
   return texs;
 }
 
-// Redraw each texture smaller and swap the image in place. The original
-// is stashed on userData so FULL restores without re-downloading.
-// This changes VRAM only — the bytes already came over the wire at full
-// resolution. A real pipeline does this at build time.
+// redraw each texture smaller and swap the image in place. The original
+// is stashed on userData so FULL restores without re-downloading
+// this changes VRAM only - the bytes already came over the wire at full
+// resolution. A real pipeline does this at build time
 export function capTextures(root, maxSize) {
   let changed = 0;
   for (const t of collectTextures(root)) {
@@ -123,7 +122,7 @@ export function capTextures(root, maxSize) {
       c.width = w;
       c.height = h;
       // Canvas 2D resampling isn't colour-managed the way a proper mip
-      // chain is. Fine for a demo, not how you'd ship it.
+      // chain is. Fine for a demo, not how you'd ship it
       c.getContext("2d").drawImage(original, 0, 0, w, h);
       t.image = c;
     }
@@ -133,10 +132,9 @@ export function capTextures(root, maxSize) {
   return changed;
 }
 
-// ---------------------------------------------------------------------
-// An ESTIMATE. Assumes 8-bit RGBA in VRAM, which is what PNG and JPEG
-// become once uploaded — file size on disk is irrelevant here. KTX2/Basis
-// textures stay compressed and would be 4-8x less; this doesn't model that.
+// an ESTIMATE, assumes 8-bit RGBA in VRAM, which is what PNG and JPEG
+// become once uploaded - file size on disk is irrelevant here. KTX2/Basis
+// textures stay compressed and would be 4-8x less; this doesn't model that
 export function estimateVram(root) {
   const geos = new Set();
   root.traverse((o) => {
