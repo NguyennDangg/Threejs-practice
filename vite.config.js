@@ -61,6 +61,7 @@ export default defineConfig({
         day23: resolve(__dirname, "day-23/index.html"),
         day24: resolve(__dirname, "day-24/index.html"),
         day25: resolve(__dirname, "day-25/index.html"),
+        day26: resolve(__dirname, "day-26/index.html"),
       },
     },
   },

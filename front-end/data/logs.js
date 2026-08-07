@@ -507,6 +507,16 @@ export const LOGS = [
     phase: 8,
     sector: "purple",
   },
+  {
+    id: "LOG_26",
+    title: "WEIGHT",
+    desc: "What crosses the wire is not what it costs.",
+    tech: "Streamed Fetch · Runtime Texture Cap · VRAM Estimation",
+    href: "/day-26/index.html",
+    category: "performance",
+    phase: 8,
+    sector: "purple",
+  },
 ];
 
 // DERIVED
