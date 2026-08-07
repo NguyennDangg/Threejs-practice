@@ -497,11 +497,21 @@ export const LOGS = [
     phase: 8,
     sector: "green",
   },
+  {
+    id: "LOG_25",
+    title: "RECALL",
+    desc: "Scattered, it still remembers the shape.",
+    tech: "GPGPU Ping-Pong · Curl Noise · Surface Sampling",
+    href: "/day-25/index.html",
+    category: "performance",
+    phase: 8,
+    sector: "purple",
+  },
 ];
 
 // DERIVED
 
-// counts per category, for the filter labels (ALL · 39, GLSL · 16, …)
+// counts per category, for the filter labels (ALL · xx, GLSL · xx, …)
 export const categoryCounts = CATEGORIES.reduce((acc, c) => {
   acc[c.id] =
     c.id === "all"
