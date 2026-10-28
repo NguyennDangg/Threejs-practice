@@ -565,7 +565,18 @@ export const LOGS = [
   //   href: "/day-31/index.html",
   //   category: "effects",
   //   phase: 9,
-  //   sector: "purple",
+  //   sector: "amber",
+  // },
+  // // PHASE 10 - ARC C: SYSTEMS (INTEGRATION)
+  // {
+  //   id: "LOG_32",
+  //   title: "RESONANCE",
+  //   desc: "Vibration converted into light.",
+  //   tech: "Web Audio API · AnalyserNode · FFT Spectrum · GLSL Uniforms",
+  //   href: "/day-32/index.html",
+  //   category: "effects",
+  //   phase: 10,
+  //   sector: "green",
   // },
 ];
 
