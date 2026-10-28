@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>day-29</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        overflow: hidden;
+        background: #0a0a0e;
+      }
+      .webgl {
+        position: fixed;
+        inset: 0;
+        display: block;
+        outline: none;
+      }
+
+      .controls {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 12px;
+        z-index: 10;
+      }
+      .controls button {
+        background: rgba(193, 18, 31, 0.12);
+        border: 1px solid rgba(193, 18, 31, 0.4);
+        color: #e8e8e8;
+        padding: 10px 20px;
+        font:
+          11px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+      .controls button:hover {
+        background: rgba(193, 18, 31, 0.24);
+        border-color: #c1121f;
+      }
+      .controls button.spawn {
+        background: rgba(193, 18, 31, 0.2);
+        border-color: #c1121f;
+      }
+      .controls button.spawn:hover {
+        background: rgba(193, 18, 31, 0.35);
+      }
+
+      .hint {
+        position: fixed;
+        top: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: rgba(6, 6, 8, 0.75);
+        padding: 14px 20px;
+        border: 1px solid rgba(193, 18, 31, 0.3);
+        border-radius: 4px;
+        max-width: 440px;
+        z-index: 10;
+      }
+      .hint .title {
+        color: #c1121f;
+        font:
+          600 10px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        letter-spacing: 0.14em;
+        margin-bottom: 8px;
+      }
+      .hint .desc {
+        color: #a8a8a8;
+        font:
+          10px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        line-height: 1.7;
+        letter-spacing: 0.02em;
+      }
+      .hint .desc b {
+        color: #e8e8e8;
+        font-weight: 600;
+      }
+      .hint.active {
+        border-color: #c1121f;
+      }
+      .hint.active .title {
+        animation: pulse 1.2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+      }
+
+      .aim-canvas {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 5;
+      }
+
+      .preview {
+        position: fixed;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(193, 18, 31, 0.6),
+          rgba(193, 18, 31, 0.1)
+        );
+        border: 2px solid rgba(193, 18, 31, 0.8);
+        pointer-events: none;
+        opacity: 0;
+        transition: opacity 0.15s;
+        z-index: 4;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font:
+          600 11px "JetBrains Mono",
+          monospace;
+        color: #c1121f;
+      }
+      .preview.active {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+    <canvas class="aim-canvas"></canvas>
+    <div class="preview"></div>
+
+    <div class="hint">
+      <div class="title">HOW TO AIM</div>
+      <div class="desc">
+        <b>1.</b> Click and hold the red sphere<br />
+        <b>2.</b> Drag towards your target (the arrow shows launch direction)<br />
+        <b>3.</b> Release to fire — the further you drag, the stronger the shot
+      </div>
+    </div>
+
+    <div class="controls">
+      <button class="spawn" data-action="spawn">SPAWN PROJECTILE</button>
+      <button data-action="reset">RESET TOWER</button>
+      <button data-action="chaos">CHAOS</button>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

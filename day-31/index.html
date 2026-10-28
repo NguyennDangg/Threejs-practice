@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>day-31</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overflow: hidden;
+        background: #0a0a0e;
+        color: #e8e8e8;
+      }
+      .webgl {
+        position: fixed;
+        inset: 0;
+        display: block;
+        outline: none;
+      }
+
+      .hud {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        z-index: 10;
+        font:
+          11px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        pointer-events: none;
+      }
+      .hud .title {
+        color: #c1121f;
+        letter-spacing: 0.16em;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+      .hud .sub {
+        color: #5a5a5a;
+        line-height: 1.6;
+      }
+
+      .panel {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 10;
+        background: rgba(6, 6, 8, 0.85);
+        border: 1px solid rgba(193, 18, 31, 0.4);
+        padding: 14px 16px;
+        width: 250px;
+        font:
+          10px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+      }
+      .panel .group {
+        margin-bottom: 14px;
+      }
+      .panel .group:last-child {
+        margin-bottom: 0;
+      }
+      .panel .label {
+        color: #5a5a5a;
+        letter-spacing: 0.1em;
+        margin-bottom: 6px;
+        display: flex;
+        justify-content: space-between;
+      }
+      .panel .label b {
+        color: #e8e8e8;
+        font-weight: normal;
+      }
+      .panel input[type="range"] {
+        width: 100%;
+        accent-color: #c1121f;
+        height: 12px;
+      }
+      .panel .toggle {
+        display: flex;
+        gap: 4px;
+      }
+      .panel .toggle button {
+        flex: 1;
+        background: transparent;
+        color: #5a5a5a;
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        padding: 5px 0;
+        font: inherit;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .panel .toggle button:hover {
+        color: #e8e8e8;
+        border-color: rgba(255, 255, 255, 0.3);
+      }
+      .panel .toggle button.on {
+        color: #c1121f;
+        border-color: #c1121f;
+      }
+
+      .focus-reticle {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60px;
+        height: 60px;
+        border: 1px solid rgba(193, 18, 31, 0.6);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 5;
+        transition: opacity 0.2s;
+      }
+      .focus-reticle::before,
+      .focus-reticle::after {
+        content: "";
+        position: absolute;
+        background: rgba(193, 18, 31, 0.6);
+      }
+      .focus-reticle::before {
+        top: 50%;
+        left: 10px;
+        right: 10px;
+        height: 1px;
+        transform: translateY(-50%);
+      }
+      .focus-reticle::after {
+        left: 50%;
+        top: 10px;
+        bottom: 10px;
+        width: 1px;
+        transform: translateX(-50%);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+
+    <div class="hud">
+      <div class="title">LOG_31 // OPTICAL STACK</div>
+      <div class="sub">
+        DRAG TO ORBIT · SCROLL TO ZOOM<br />CLICK TO SET FOCUS POINT
+      </div>
+    </div>
+
+    <div class="focus-reticle"></div>
+
+    <div class="panel">
+      <div class="group">
+        <div class="label">SSAO <b data-ssao-v>0.5</b></div>
+        <input type="range" data-ssao min="0" max="2" step="0.05" value="0.5" />
+      </div>
+      <div class="group">
+        <div class="label">FOCAL DEPTH <b data-focus-v></b></div>
+        <input
+          type="range"
+          data-focus
+          min="0.1"
+          max="1"
+          step="0.01"
+          value="0.5"
+        />
+      </div>
+      <div class="group">
+        <div class="label">APERTURE <b data-aperture-v>0.0</b></div>
+        <input
+          type="range"
+          data-aperture
+          min="0"
+          max="0.001"
+          step="0.00001"
+          value="0"
+        />
+      </div>
+      <div class="group">
+        <div class="label">MOTION BLUR</div>
+        <div class="toggle" data-mb-toggle>
+          <button data-on="0" class="on">OFF</button>
+          <button data-on="1">ON</button>
+        </div>
+      </div>
+      <div class="group">
+        <div class="label">STACK</div>
+        <div class="toggle" data-stack-toggle>
+          <button data-stack="none">RAW</button>
+          <button data-stack="ssao" class="on">SSAO</button>
+          <button data-stack="full">FULL</button>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

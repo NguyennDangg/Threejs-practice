@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 28</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        background: #0a0a0e;
+      }
+      body {
+        overflow-x: hidden;
+        background: #0a0a0e;
+        color: #e8e8e8;
+        font:
+          11px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+      }
+
+      .webgl {
+        position: fixed;
+        inset: 0;
+        display: block;
+        outline: none;
+        z-index: 0;
+      }
+
+      /* The only thing that makes the page scrollable. No content,
+         no layout — its entire job is height. */
+      .scroll-spacer {
+        height: 500vh;
+        pointer-events: none;
+      }
+
+      .stage-labels {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        display: flex;
+        align-items: center;
+        padding: 0 8vw;
+      }
+      .stage-label {
+        position: absolute;
+        max-width: 420px;
+        opacity: 0;
+        will-change: opacity, transform;
+      }
+      .stage-label .n {
+        color: #c1121f;
+        letter-spacing: 0.18em;
+        margin-bottom: 10px;
+      }
+      .stage-label h2 {
+        font:
+          400 clamp(28px, 4.4vw, 56px)/0.98 "Inter",
+          system-ui,
+          sans-serif;
+        letter-spacing: -0.02em;
+        margin-bottom: 14px;
+      }
+      .stage-label p {
+        color: #5a5a5a;
+        line-height: 1.6;
+        max-width: 320px;
+      }
+
+      .scroll-cue {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        color: #3f3f3f;
+        letter-spacing: 0.2em;
+        transition: opacity 0.3s;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+
+    <div class="stage-labels">
+      <div class="stage-label" data-stage="0">
+        <div class="n">01 / APPROACH</div>
+        <h2>The observer<br />begins at rest.</h2>
+        <p>Nothing moves until intent is expressed. Scroll is intent.</p>
+      </div>
+      <div class="stage-label" data-stage="1">
+        <div class="n">02 / INSPECTION</div>
+        <h2>Distance is<br />a choice.</h2>
+        <p>Approach without commitment. The subject permits scrutiny.</p>
+      </div>
+      <div class="stage-label" data-stage="2">
+        <div class="n">03 / PASSAGE</div>
+        <h2>The axis<br />inverts.</h2>
+        <p>To study the whole, abandon the front. The reverse is also true.</p>
+      </div>
+      <div class="stage-label" data-stage="3">
+        <div class="n">04 / DISPERSAL</div>
+        <h2>Cohesion<br />releases.</h2>
+        <p>Each element holds its own position. Order becomes a proposal.</p>
+      </div>
+      <div class="stage-label" data-stage="4">
+        <div class="n">05 / RETURN</div>
+        <h2>The cycle<br />closes.</h2>
+        <p>What began at rest returns to rest. Changed, not travelled.</p>
+      </div>
+    </div>
+
+    <div class="scroll-cue" data-cue>SCROLL</div>
+
+    <div class="scroll-spacer"></div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

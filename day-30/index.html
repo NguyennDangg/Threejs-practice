@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Day 30</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        overflow: hidden;
+        background: #0a0a0e;
+        color: #e8e8e8;
+      }
+      .webgl {
+        position: fixed;
+        inset: 0;
+        display: block;
+        outline: none;
+      }
+
+      .hud {
+        position: fixed;
+        top: 24px;
+        left: 24px;
+        z-index: 10;
+        font:
+          11px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        pointer-events: none;
+      }
+      .hud .title {
+        color: #c1121f;
+        letter-spacing: 0.16em;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
+      .hud .sub {
+        color: #5a5a5a;
+        line-height: 1.6;
+      }
+
+      .controls {
+        position: fixed;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 10;
+      }
+      .controls button {
+        background: rgba(6, 6, 8, 0.85);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        color: #888;
+        padding: 8px 16px;
+        font:
+          10px "JetBrains Mono",
+          ui-monospace,
+          monospace;
+        letter-spacing: 0.08em;
+        cursor: pointer;
+        transition: 0.15s;
+      }
+      .controls button:hover {
+        color: #e8e8e8;
+        border-color: rgba(255, 255, 255, 0.4);
+      }
+      .controls button.active {
+        color: #c1121f;
+        border-color: #c1121f;
+        background: rgba(193, 18, 31, 0.08);
+      }
+    </style>
+  </head>
+  <body>
+    <canvas class="webgl"></canvas>
+
+    <div class="hud">
+      <div class="title">LOG_30 // MSDF TYPOGRAPHY</div>
+      <div class="sub">
+        SCROLL TO ZOOM EXTREMELY CLOSE<br />NOTICE ZERO PIXELATION
+      </div>
+    </div>
+
+    <div class="controls">
+      <button data-mode="depth" class="active">DEPTH SLABS</button>
+      <button data-mode="kinetic">KINETIC WAVE</button>
+      <button data-mode="outline">STROKE / OUTLINE</button>
+    </div>
+
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>
